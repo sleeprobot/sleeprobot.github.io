@@ -1,3 +1,1056 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
+  <entry>
+    <title>hello</title>
+    <url>/2020/09/28/hello/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>hello</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git学习笔记</title>
+    <url>/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="写在最前"><a href="#写在最前" class="headerlink" title="写在最前"></a>写在最前</h1><p>这篇<strong>《Git 学习笔记》</strong>主要记录的是 git 的一些知识点以及常用命令，属于入门级。推荐通读全文并试着自己操作一下；赶时间的话，可以直接阅读最后的总结，会列出常用的命令。<strong>如文中有知识点写错，欢迎指正。</strong></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923094752490.png" alt="image-20200923094752490"></p>
+<h1 id="0、Git-简介"><a href="#0、Git-简介" class="headerlink" title="0、Git 简介"></a>0、Git 简介</h1><h2 id="Git-简史"><a href="#Git-简史" class="headerlink" title="Git 简史"></a>Git 简史</h2><p>同生活中的许多伟大事物一样，git 诞生于一个极富纷争大举创新的年代。</p>
+<p>Linux 内核开源项目有着为数众多的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。</p>
+<p>到了 2005 年，开发 BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束，他们收回了 Linux 内核社区免费使用 BitKeeper 的权力。 这就迫使 Linux 开源社区（特别是 Linux 的缔造者 Linus Torvalds）基于使用 BitKeeper 时的经验教训，开发出自己的版本系统。 他们对新的系统制订了若干目标：</p>
+<ul>
+<li>速度</li>
+<li>简单的设计</li>
+<li>对非线性开发模式的强力支持（允许成千上万个并行开发的分支）</li>
+<li>完全分布式</li>
+<li>有能力高效管理类似 Linux 内核一样的超大规模项目（速度和数据量）</li>
+</ul>
+<p>自诞生于 2005 年以来，git 日臻成熟完善，在高度易用的同时，仍然保留着初期设定的目标。 它的速度飞快，极其适合管理大项目，有着令人难以置信的非线性分支管理系统</p>
+<h2 id="什么是Git？"><a href="#什么是Git？" class="headerlink" title="什么是Git？"></a>什么是Git？</h2><p>一句话：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<h1 id="1、Git安装"><a href="#1、Git安装" class="headerlink" title="1、Git安装"></a>1、Git安装</h1><h2 id="centos7中安装Git"><a href="#centos7中安装Git" class="headerlink" title="centos7中安装Git"></a>centos7中安装Git</h2><h3 id="简单粗暴版"><a href="#简单粗暴版" class="headerlink" title="简单粗暴版"></a>简单粗暴版</h3><ol>
+<li><p>查看是否安装了git</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git --version <span class="comment">#查看git版本信息</span></span><br></pre></td></tr></table></figure>
+
+<p>如果提示未找到命令，则表示没有安装</p>
+</li>
+<li><p>如果安装了git，但是版本过低，则使用该命令移除原来的版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum remove git <span class="comment"># 移除原来的版本</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看yum源仓库的git信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum info git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装git</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install git</span><br></pre></td></tr></table></figure>
+
+<p>自动安装好git以及所需要的依赖。</p>
+</li>
+</ol>
+<h3 id="使用源码包安装"><a href="#使用源码包安装" class="headerlink" title="使用源码包安装"></a>使用源码包安装</h3><ol>
+<li><p>下载源码包</p>
+<p>源码包下载地址：<a href="https://github.com/git/git/releases">https://github.com/git/git/releases</a></p>
+<p>或者使用该命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt <span class="comment"># 进入opt目录，将源码包下载到该目录</span></span><br><span class="line">wget https://www.kernel.org/pub/software/scm/git/git-2.28.0.tar.gz <span class="comment"># 下载源码包</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf git-2.28.0.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装依赖库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel autoconf gcc-c++</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> git-2.28.0 <span class="comment"># 进入解压后的git源码包目录</span></span><br><span class="line">./configure --prefix=/usr/software/git <span class="comment"># 编译的时候用来指定程序存放路径 </span></span><br><span class="line">make prefix=/usr/software/git  <span class="comment"># 编译</span></span><br><span class="line">make install <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure>
+
+<p>扩展：<code>configure</code>是一个可执行脚本，它有很多选项，在待安装的源码路径下使用命令<code>./configure–help</code>输出详细的选项列表。其中，<code>prefix</code>选项是配置安装的路径，如果不配置该选项，安装后可执行文件默认放在<code>/usr/local/bin</code>，库文件默认放在<code>/usr/local/lib</code>，配置文件默认放在<code>/usr/local/etc</code>，其它的资源文件放在<code>/usr/local/share</code>，比较凌乱。</p>
+<p>如果配置<code>prefix</code>，如：<code>./configure --prefix=/usr/software/git</code>可以把所有资源文件放在<code>/usr/software/git</code>的路径中，不会杂乱。如果想要卸载git，直接删除<code>/usr/software</code>目录下的<code>git</code>文件夹即可</p>
+</li>
+<li><p>添加环境变量</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export PATH=<span class="variable">$PATH</span>:/usr/software/git/bin&quot;</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>刷新环境变量，使其生效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查git版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200917183904420.png" alt="image-20200917183904420"></p>
+<p>出现git版本信息，就说明安装成功了</p>
+</li>
+</ol>
+<h2 id="Windows10-中安装"><a href="#Windows10-中安装" class="headerlink" title="Windows10 中安装"></a>Windows10 中安装</h2><h1 id="2、Git配置"><a href="#2、Git配置" class="headerlink" title="2、Git配置"></a>2、Git配置</h1><p>git 提供了一个叫做<code>git config</code> 的工具，专门用来配置或读取相应的工作环境变量，这些环境变量，决定了 git 在各个环节的具体工作方式和行为。这些变量存放在以下三个不同的地方（只有在进行相应的配置之后才会有出现这些配置文件）：</p>
+<ul>
+<li><code>/etc/gitconfig</code> 文件: 包含系统上所有用户及他们仓库的通用配置。 如果在执行 <code>git config</code> 时带上 <code>--system</code> 选项，那么它就会读写该文件中的配置变量。 （由于它是系统配置文件，因此你需要管理员或超级用户权限来修改它。）</li>
+<li><code>~/.gitconfig</code> 或 <code>~/.config/git/config</code> 文件：只针对当前用户。 你可以使用 <code>--global</code> 选项让 git 读写此文件，这会对你系统上 <strong>所有</strong> 的仓库生效。</li>
+<li>当前项目的 git 目录中的 <code>config</code> 文件（即 <code>.git/config</code>）：针对该项目有效。 你可以传递 <code>--local</code> 选项让 git 强制读写此文件，虽然默认情况下用的就是它。 （当然，你需要进入某个 git 仓库中才能让该选项生效。）</li>
+</ul>
+<p>每一个级别会覆盖上一级别的配置，所以 <code>.git/config</code> 的配置变量会覆盖 <code>/etc/gitconfig</code> 中的配置变量。</p>
+<p>你可以通过以下命令查看所有的配置以及它们所在的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --list --show-origin</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置用户信息"><a href="#配置用户信息" class="headerlink" title="配置用户信息"></a>配置用户信息</h2><p>安装完 Git 之后，要做的第一件事就是设置你的用户名和邮件地址。 这一点很重要，因为每一个 Git 提交都会使用这些信息，它们会写入到你的每一次提交中。</p>
+<p>配置个人的用户名称和电子邮件地址：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;sleep&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;sleep@gmail.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你想修改这个信息</span></span><br><span class="line">git config --global user.name <span class="string">&quot;写新的用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;新的邮箱&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你想查看自己配置的用户名和电子邮件地址</span></span><br><span class="line">git config --global user.name</span><br><span class="line">git config --global user.email</span><br></pre></td></tr></table></figure>
+
+<p>如果使用了 <code>--global</code> 选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， git 都会使用这些信息。 当你想针对特定项目使用不同的用户名称与邮件地址时，只要去掉 <code>--global</code> 选项来重新配置即可，新的配置会保存在当前项目的<code>.git/config</code>文件里</p>
+<h2 id="检查配置信息"><a href="#检查配置信息" class="headerlink" title="检查配置信息"></a>检查配置信息</h2><p>如果想要检查你的配置，可以使用 <code>git config --list</code> 命令来列出所有 git 当时能找到的配置。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># git config --list</span></span><br><span class="line">user.name=sleep</span><br><span class="line">user.email=sleep@gmail.com</span><br></pre></td></tr></table></figure>
+
+<p>你可能会看到重复的变量名，因为 git 会从不同的文件中读取同一个配置（例如：<code>/etc/gitconfig</code> 与 <code>~/.gitconfig</code>）。 这种情况下，git 会使用这个命令找到的每一个变量的最后一个配置。</p>
+<p>如果你想查看某一项的配置，你可以使用<code>git config &lt;key&gt;</code>命令，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># git config user.name</span></span><br><span class="line">sleep</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、创建Git仓库"><a href="#3、创建Git仓库" class="headerlink" title="3、创建Git仓库"></a>3、创建Git仓库</h1><p>什么是仓库呢？仓库又叫版本库，英文名为<strong>repository</strong>，可以简单理解成一个目录，这个目录里的所有文件可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，任何时刻都可以追踪历史，或者在将来的某个时刻还可以还原。</p>
+<p><strong>在开始之前，先了解一些前置知识：</strong></p>
+<p>所有的版本控制系统，只能跟踪文本文件的改动，比如TXT文件、网页、代码等，Git也不例外。对于图片、视频这些二进制文件，Git只能把二进制文件的每次改动串起来，也就是只知道图片从100kb改成了120kb，但是到底改了什么，Git不知道，也没法知道。但是二进制文件，同样是可以放入版本控制工具中进行管理的。</p>
+<p>文本是有编码的，这里建议使用UTF-8编码。</p>
+<p>如果使用过得是Windows系统，不建议使用<strong>记事本</strong>编辑文本文件，原因是记事本对UTF-8编码的文件支持度不是很好，容易出现奇葩问题。推荐使用Notepad++代替记事本，它不但功能强大，而且免费，使用时记得把Notepad++的默认编码设置为UTF-8 without BOM即可：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923150813612.png" alt="image-20200923150813612"></p>
+<p>Notepad++下载地址：<a href="https://notepad-plus-plus.org/">https://notepad-plus-plus.org/</a></p>
+<p>创建git仓库的的方式有两种：</p>
+<ol>
+<li>将尚未进行版本控制的本地目录转换为git仓库</li>
+<li>从其它服务器<strong>克隆</strong>一个已存在的git仓库</li>
+</ol>
+<p>两种方式都会在你的本地机器上得到一个 git 仓库。</p>
+<h2 id="在任意目录中初始化仓库"><a href="#在任意目录中初始化仓库" class="headerlink" title="在任意目录中初始化仓库"></a>在任意目录中初始化仓库</h2><p>如果你有一个尚未进行版本控制的项目目录，想要用 git 来管理它，那么首先需要进入该项目目录中。</p>
+<p>进入目录中，执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line"><span class="comment"># 或者 对指定的目录进行版本控制</span></span><br><span class="line">git init newrepo</span><br></pre></td></tr></table></figure>
+
+<p>该命令将创建一个名为 <code>.git</code> 的子目录，这个子目录含有你初始化的 git 仓库中所有的必须文件。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
+<p>可以通过 <code>git add</code> 命令来指定所需的文件来进行追踪，然后执行 <code>git commit</code> 进行提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对所有文件扩展名为.c的文件进行跟踪</span></span><br><span class="line">git add *.c</span><br><span class="line"><span class="comment"># 未指定扩展名，则表示这是一个文件夹</span></span><br><span class="line">git add <span class="built_in">test</span></span><br><span class="line"><span class="comment"># -m 对该次提交的说明</span></span><br><span class="line">git commit -m <span class="string">&#x27;初始化项目版本&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>稍后我们再逐一解释这些指令的行为。</p>
+<p>现在我们来实践一下：</p>
+<ol>
+<li><p>新建一个文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 新建learngit文件夹</span></span><br><span class="line">$ mkdir learngit</span><br><span class="line"><span class="comment"># 进入learnGit文件夹</span></span><br><span class="line">$ <span class="built_in">cd</span> learngit/</span><br><span class="line"><span class="comment"># 查看当前所在的目录（文件夹）</span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/e/workspace/learngit <span class="comment"># 表示当前在E盘的workspace文件夹下的learngit文件夹中</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Tip：</strong>新建的目录最好不要使用中文，包括它的上级目录，最好也不要有中文，以免出现奇怪的问题。</p>
+</li>
+<li><p>通过<code>git init</code>命令把这个目录变成Git可以管理的仓库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> E:/workspace/learngit/.git/</span><br></pre></td></tr></table></figure>
+
+<p>瞬间Git就把仓库建好了，而且告诉你是一个空的仓库（empty Git repository）。</p>
+</li>
+<li><p>git创建好仓库之后，会生成一个<code>.git</code>文件夹，它是个隐藏文件夹，主要是git用来跟踪管理版本库的，没事千万不要手动修改里面的文件，不然会多git仓库造成破坏。隐藏文件默认是不可见的，使用<code>ls -a</code>命令就可以看见它了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls -a</span><br><span class="line">./  ../  .git/ <span class="comment"># ./ 表示当前目录  ../表示上一层目录</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>不一定必须在空目录下创建Git仓库，也可以选择一个已经有东西的目录。不过，不建议在公司使用自己正在开发的项目来学习Git，造成的后果，我可不负责任哦。</p>
+<p>git仓库创建好了，现在使用Notepad++新建一个readme.txt文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>将这个文件放在<code>learngit</code>目录下，子目录也是可以的，如果放在learngit目录外面，那Git是找不到的，进不能进行版本管理。</p>
+<p>把一个文件放到仓库只需要两步：</p>
+<ol>
+<li><p>用<code>git add</code>命令，将文件放入暂存区：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>执行完，没有任何消息，没有消息就是好消息，说明添加成功。</p>
+</li>
+<li><p>用<code>git commit</code>命令，把文件提交到本地仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;write a readme file&#x27;</span></span><br><span class="line">[master (root-commit) d1bdde3] write a readme file</span><br><span class="line"> 1 file changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>此时readme.txt就被提交到了git仓库。</p>
+</li>
+</ol>
+<h2 id="克隆现有的仓库"><a href="#克隆现有的仓库" class="headerlink" title="克隆现有的仓库"></a>克隆现有的仓库</h2><p>如果你想获得一份已经存在了的 git 仓库的拷贝，就要用到<code>git clone</code>命令（类似SVN的checkout命令）。git 克隆的是该 git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件。 当你执行 <code>git clone</code> 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来。 事实上，如果你的服务器的磁盘坏掉了，你通常可以使用任何一个克隆下来的用户端来重建服务器上的仓库 （虽然可能会丢失某些服务器端的钩子（hook）设置，但是所有版本的数据仍在）。</p>
+<p>克隆仓库的命令是 <code>git clone &lt;url&gt;</code> 。 比如，要克隆 github 上的某个库，可以用下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/tiangoubot/learngit.git</span><br></pre></td></tr></table></figure>
+
+<p>这个操作会在当前目录下创建一个名为 gitTest 的目录，并在这个目录下初始化一个<code>.git</code>文件夹（改文件加为隐藏文件），从远程仓库拉取下所有数据放入 <code>.git</code> 文件夹，然后从中读取最新版本的文件的拷贝。</p>
+<p>如果你想在克隆远程仓库的时候，自定义本地仓库的名字，你可以指定新的目录名：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/tiangoubot/learngit.git myTest</span><br></pre></td></tr></table></figure>
+
+<p>git 支持多种数据传输协议。 上面的例子使用的是 <code>https://</code> 协议。</p>
+<h1 id="4、将文件添加到Git仓库"><a href="#4、将文件添加到Git仓库" class="headerlink" title="4、将文件添加到Git仓库"></a>4、将文件添加到Git仓库</h1><p>在前面的实战部分，已经体验过怎么将文件添加到本地的git仓库了。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923165017057.png" alt="image-20200923165017057"></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923165435138.png" alt="image-20200923165435138"></p>
+<p>工作目录（实战中的<code>learngit</code>文件夹）下的每一个文件都不外乎这两种状态：<strong>已跟踪</strong> 或 <strong>未跟踪</strong>。</p>
+<p><strong>已跟踪：</strong>已跟踪的文件是指那些被纳入了版本控制的文件，在上一次快照中有它们的记录，在工作一段时间后， 它们的状态可能是未修改，已修改或已放入暂存区。简而言之，已跟踪的文件就是 git 已经知道的文件。</p>
+<p><strong>未跟踪：</strong>除了已跟踪的文件，都是未跟踪文件，它们既不存在于上次快照的记录中，也没有被放入暂存区。初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态，因为 git 刚刚检出了它们， 而你尚未编辑过它们。</p>
+<p>编辑过某些文件之后，由于自上次提交后你对它们做了修改，git 将它们标记为已修改文件。 在工作时，你可以选择性地将这些修改过的文件放入暂存区，然后提交所有已暂存的修改，如此反复。下图为文件的状态变化周期</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200918022648284.png" alt="文件的状态变化周期"></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200918042109655.png" alt="小朋友你是否有很多问号"></p>
+<p>接着往下看，看完还不懂，提上你40米长的大刀来砍我。</p>
+<h2 id="检查当前文件状态"><a href="#检查当前文件状态" class="headerlink" title="检查当前文件状态"></a>检查当前文件状态</h2><p>这里再次使用<code>learngit</code>目录，在上面的实践结束后，该目录下只有一个<code>readme.txt</code>文件，我们使用<code>git status</code>命令查看一下文件处于什么状态，使用此命令，会看到类似这样的输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master <span class="comment"># 说明当前所在分支 master 为默认分支名</span></span><br><span class="line">nothing to commit, working tree clean <span class="comment"># emmm~ 你细细拼一下这什么意思</span></span><br></pre></td></tr></table></figure>
+
+<p>这个输出表明自实践结束后，还未对目录里的文件进行过任何修改，也没有出现任何处于未跟踪状态的新文件，否则 git 会在这里列出来，最后，该命令还显示了当前所在分支（之后会介绍分支）。</p>
+<p>现在，在<code>learngit</code>目录下，新建一个<code>test.txt</code>文件，文件内容为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this is a test file</span><br></pre></td></tr></table></figure>
+
+<p>此时，使用<code>git status</code>命令，就能看到一个新的未被跟踪的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        test.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br></pre></td></tr></table></figure>
+
+<p>在状态报告中可以看到新建的 <code>test.txt</code> 文件出现在 <code>Untracked files</code> 下面。<strong>未跟踪的文件意味着 git 仓库中没有这些文件；git 不会自动将之纳入跟踪范围。</strong>现在搞懂未跟踪文件的意思了吧。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923173631258.png" alt="image-20200923173631258"></p>
+<p>如果想要将<code>test.txt</code>也加入git仓库，让git进行管理，就要先将<code>test.txt</code>加入暂存区，进行跟踪。</p>
+<p>已经提到很多次暂存区了，那么究竟什么是暂存区？</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923172728086.png" alt="image-20200923172728086"></p>
+<h2 id="工作区、暂存区和版本库"><a href="#工作区、暂存区和版本库" class="headerlink" title="工作区、暂存区和版本库"></a>工作区、暂存区和版本库</h2><p><strong>工作区（Working Directory）：</strong></p>
+<p>就是在电脑里能看到的目录，比如<code>learngit</code>文件夹就是一个工作区：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923174337765.png" alt="image-20200923174337765"></p>
+<p><strong>版本库（Repository）：</strong></p>
+<p>工作区有一个隐藏目录<code>.git</code>，这个不算工作区，而是Git的版本库。</p>
+<p>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923174541512.png" alt="image-20200923174541512"></p>
+<p>分支和<code>HEAD</code>的概念我们以后再讲。</p>
+<p>前面有讲过使用<code>git add</code>命令将文件加入暂存区，实际上是把要提交的文件的所有修改添加到暂存区，然后执行<code>git commit</code>就可以一次性把暂存区的所有修改提交到本地仓库的分支上。</p>
+<p><strong>暂存区（Stage或Index）：</strong></p>
+<p>一般存放在 <code>.git</code>目录下的 index 文件（<code>.git/index</code>）中，所以我们把暂存区有时也叫作索引（<code>index</code>）。暂存区可以理解为一个虚拟工作区，这个虚拟工作区会跟踪工作区的文件变化（增删改等操作）。这个工作区的位于.git 文件夹下的<code>index</code>文件中。</p>
+<p><strong>需要理解一点</strong>：当需要对工作区的修改提交到版本库前，暂存区会与工作区进行差异比较，如果工作区与暂存区的文件不一致，那么需要同步工作区的修改到暂存区，然后才可以提交到版本库。从这个意义讲，暂存区可以说是工作区和版本库的桥梁。好处自然是可以在真正提交到版本库之前做任意的操作，在需要真正提交的时候 commit 到版本库 。当执行完<code>git commit</code>命令时，暂存区会被清空。</p>
+<p>实践出真知，我们来实践一下：</p>
+<p>在之前的操作中，添加了一个新的文件<code>test.txt</code>，之后就没有其他操作了，现在，我们修改一下<code>readme.txt</code>文件，比如加上一句话：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br></pre></td></tr></table></figure>
+
+<p>再用<code>git status</code>查看一下状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>git非常清楚的告诉了我们，<code>readme.txt</code>被修改了，而<code>test.txt</code>的状态是未被跟踪的。</p>
+<p>现在，使用<code>git add</code>命令，把<code>readme.txt</code>和<code>test.txt</code>都添加到暂存区，使用<code>git status</code>再次查看一下状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将readme.txt和test.txt一次性添加到暂存区</span></span><br><span class="line">$ git add readme.txt test.txt</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line">        new file:   test.txt</span><br></pre></td></tr></table></figure>
+
+<p>此时，暂存区的状态就变成这样了：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923183904023.png" alt="image-20200923183904023"></p>
+<p>所以，<code>git add</code>命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行<code>git commit</code>就可以一次性把暂存区的所有修改提交到分支。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;understand how stage works&#x27;</span></span><br><span class="line">[master 8ec32e3] understand how stage works</span><br><span class="line"> 2 files changed, 3 insertions(+), 1 deletion(-)</span><br><span class="line"> create mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>一旦提交后，如果你又没有对工作区做任何修改，那么工作区就是“干净”的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+<p>现在版本库变成了这样，暂存区就没有任何内容了：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923185023250.png" alt="image-20200923185023250"></p>
+<p>搞定收工！</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923190158250.png" alt="image-20200923190158250"></p>
+<h2 id="跟踪新文件"><a href="#跟踪新文件" class="headerlink" title="跟踪新文件"></a>跟踪新文件</h2><p>使用命令<code>git add</code>开始跟踪一个文件，这个已经讲过很多次了，就不赘述了，不过要注意的是文件名不能写错：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里要写文件的全名</span></span><br><span class="line">$ git add test.txt</span><br><span class="line"><span class="comment"># 文件名没有写全，或者写错，会出现下面的信息</span></span><br><span class="line">$ git add <span class="built_in">test</span></span><br><span class="line">fatal: pathspec <span class="string">&#x27;test&#x27;</span> did not match any files</span><br><span class="line">$ git add test.tx</span><br><span class="line">fatal: pathspec <span class="string">&#x27;test.tx&#x27;</span> did not match any files</span><br></pre></td></tr></table></figure>
+
+<h2 id="暂存已修改的文件"><a href="#暂存已修改的文件" class="headerlink" title="暂存已修改的文件"></a>暂存已修改的文件</h2><p>暂存已修改的文件，使用的命令是：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923191152796.png" alt="image-20200923191152796"></p>
+<p>没错，还是<code>git add</code>，惊不惊喜意不意外？这个前面也已经提到了，就不赘述了。</p>
+<p><code>git add</code>命令是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。将这个命令理解为“精确地将内容添加到下一次提交中”而不是“将一个文件添加到项目（仓库）中”要更加合适。</p>
+<p><strong>这里有一个需要注意的点：同一个文件，同时出现在暂存区和非暂存区。</strong></p>
+<p>我们来重现一下这个问题：</p>
+<p>首先，修改<code>readme.txt</code>文件，将内容改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git is so good</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>git add</code>命令将<code>readme.txt</code>放入暂存区，使用<code>git add</code>命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>再次修改<code>readme.txt</code>文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git is so good</span><br><span class="line">Linus is god</span><br></pre></td></tr></table></figure>
+
+<p>此时再次运行<code>git status</code>命令看看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>现在<code>readme.txt</code>文件同时出现在暂存区和非暂存区。实际上 git 只不过暂存了你最后一次运行 <code>git add</code> 命令时的版本。 如果你现在提交，你在<code>git add</code> 命令之后的修改，不会被提交到仓库中。 所以，运行了 <code>git add</code> 之后又进行过修改的文件，需要重新运行 <code>git add</code> 把最新版本重新暂存起来：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>现在把<code>readme.txt</code>提交到仓库吧</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;update readme.txt&#x27;</span></span><br><span class="line">[master 0086f1a] update readme.txt</span><br><span class="line"> 1 file changed, 3 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<h2 id="状态简述"><a href="#状态简述" class="headerlink" title="状态简述"></a>状态简述</h2><p><code>git status</code> 命令的输出十分详细，显得有些繁琐。 git 有一个选项可以帮你缩短状态命令的输出，这样可以以简洁的方式查看更改。 如果你使用 <code>git status -s</code> 命令或 <code>git status --short</code> 命令，你将得到一种格式更为紧凑的输出。你可能会看到以下输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line"> M helloGit.txt</span><br><span class="line">MM README.md</span><br><span class="line">M  test.txt</span><br><span class="line">A  testC.c</span><br><span class="line">?? testDoc.doc</span><br></pre></td></tr></table></figure>
+
+<p>新添加的未跟踪文件前面有 <code>??</code> 标记，新添加到暂存区中的文件前面有 <code>A</code> 标记，修改过的文件前面有 <code>M</code> 标记。输出中有两栏，左栏指明了暂存区的状态，右栏指明了工作区的状态。例如，上面的状态报告显示： <code>helloGit.txt</code> 文件在工作区已修改但尚未暂存，而 <code>test.txt</code> 文件已修改且已暂存。 <code>README.md</code> 文件已修改，暂存后又作了修改，因此该文件的修改中既有已暂存的部分，又有未暂存的部分</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200918042109655.png" alt="小问号你是否有很多朋友？"></p>
+<p>是不是有点晕？没关系，我们再实践一下，重现上面的输出。</p>
+<p>上面的输出涉及了5个文件，我们<code>learngit</code>目录中已经有两个了，再新建三个文件<code>app.txt</code>、<code>google.txt</code>、<code>ali.txt</code>，文件内容任意就行。</p>
+<ol>
+<li><p>将<code>app.txt</code>、<code>google.txt</code>添加到暂存区中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add app.txt google.txt</span><br><span class="line"><span class="comment"># 单独提交 app.txt文件</span></span><br><span class="line">$ git commit -m <span class="string">&#x27;commit app.txt&#x27;</span> app.txt</span><br></pre></td></tr></table></figure>
+
+<p>再修改<code>app.txt</code>文件内容</p>
+</li>
+<li><p>修改<code>test.txt</code>文件，并使用<code>git add</code>命令将其加入暂存区</p>
+</li>
+<li><p>修改<code>readme.txt</code>文件，并使用<code>git add</code>命令将其加入暂存区，之后再次进行修改</p>
+</li>
+<li><p>使用<code>git status -s</code>命令查看状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line"> M app.txt</span><br><span class="line">A  google.txt</span><br><span class="line">MM readme.txt</span><br><span class="line">M  test.txt</span><br><span class="line">?? ali.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果步骤1中没有单独提交<code>app.txt</code>文件，那么输出应该是这样的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line">AM app.txt</span><br><span class="line">A  google.txt</span><br><span class="line">MM readme.txt</span><br><span class="line">M  test.txt</span><br><span class="line">?? ali.txt</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<p>小结：使用<code>git status -s</code>查看状态，状态会以两列显示，左栏表示暂存区的状态，右栏表示工作区的状态。</p>
+<p>完美复现了，现在将他们提交到仓库，以免忘记，影响下次实验：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -a -m <span class="string">&#x27;update file content and add app.txt google.txt&#x27;</span></span><br><span class="line">[master b9cb70f] update file content and add app.txt google.txt</span><br><span class="line"> 4 files changed, 7 insertions(+), 2 deletions(-)</span><br><span class="line"> create mode 100644 app.txt</span><br><span class="line"> create mode 100644 google.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>一般来讲，总有不需要放入git仓库进行管理的文件，也不想看到它出现在未跟踪列表，在这种情况下，我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件的模式。 来看一个实际的 <code>.gitignore</code> 例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat .gitignore <span class="comment"># cat命令可以查看文件内容</span></span><br><span class="line">*.[oa]	<span class="comment"># 文件内容</span></span><br><span class="line">*~ 		<span class="comment"># 文件内容</span></span><br></pre></td></tr></table></figure>
+
+<p>第一行告诉 git 忽略所有以 <code>.o</code> 或 <code>.a</code> 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的。 第二行告诉 git 忽略所有名字以波浪符<code>~</code>结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。 此外，你可能还需要忽略 log，tmp 或者 pid 目录，以及自动生成的文档等等。 要养成一开始就为你的新仓库设置好 .gitignore 文件的习惯，以免将来误提交这类无用的文件。</p>
+<p>文件 <code>.gitignore</code> 的格式规范如下：</p>
+<ul>
+<li>所有空行或者以 <code>#</code> 开头的行都会被 Git 忽略。</li>
+<li>可以使用标准的 glob 模式匹配，它会递归地应用在整个工作区中。</li>
+<li>匹配模式可以以（<code>/</code>）开头防止递归。</li>
+<li>匹配模式可以以（<code>/</code>）结尾指定目录。</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上叹号（<code>!</code>）取反。</li>
+</ul>
+<p>所谓的 glob 模式是指 shell 所使用的简化了的正则表达式。 星号（<code>*</code>）匹配零个或多个任意字符；<code>[abc]</code> 匹配任何一个列在方括号中的字符 （这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）； 问号（<code>?</code>）只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符， 表示所有在这两个字符范围内的都可以匹配（比如 <code>[0-9]</code> 表示匹配所有 0 到 9 的数字）。 使用两个星号（<code>**</code>）表示匹配任意中间目录，比如 <code>a/**/z</code> 可以匹配 <code>a/z</code> 、 <code>a/b/z</code> 或 <code>a/b/c/z</code> 等。</p>
+<p>我们再看一个 <code>.gitignore</code> 文件的例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 忽略所有的 .a 文件</span></span><br><span class="line">*.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跟踪所有的 lib.a，即便你在前面忽略了 .a 文件</span></span><br><span class="line">!lib.a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只忽略当前目录下的 TODO 文件，而不忽略 subdir/TODO</span></span><br><span class="line">/TODO</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略任何目录下名为 build 的文件夹</span></span><br><span class="line">build/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略 doc/notes.txt，但不忽略 doc/server/arch.txt</span></span><br><span class="line">doc/*.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略 doc/ 目录及其所有子目录下的 .pdf 文件</span></span><br><span class="line">doc/**/*.pdf</span><br></pre></td></tr></table></figure>
+
+<p>在最简单的情况下，一个仓库可能只根目录下有一个 <code>.gitignore</code> 文件，它递归地应用到整个仓库中。 然而，子目录下也可以有额外的 <code>.gitignore</code> 文件。子目录中的 <code>.gitignore</code> 文件中的规则只作用于它所在的目录中。</p>
+<p><strong>Tip：</strong>GitHub 有一个十分详细的针对数十种项目及语言的 <code>.gitignore</code> 文件列表， 你可以在 <a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a> 找到它。</p>
+<p><strong>实践：</strong>在做完上一个示例之后，我们使用<code>git status -s</code>命令查看文件状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        ali.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br></pre></td></tr></table></figure>
+
+<p>git 会一直提示<code>ali.txt</code>未被跟踪，这是不是很烦人，假如这个文件，就是个临时文件，没有价值的文件，我们不想让git管理它，那么，这个时候，我们可以新建一个<code>.gitignore</code>文件，将它加入git仓库进行管理。</p>
+<p>首先，新建<code>.gitignore</code>文件。这里说一下，在Windows系统下，是不能直接新建以<code>.</code>开头的文件，除非你这么命名<code>.gitignore.txt</code>（这个是可行的），那么假如你新建的是<code>.gitignore.txt</code>文件，并添加了如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ali.txt</span><br></pre></td></tr></table></figure>
+
+<p>那看看git是怎么看待这个文件的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        .gitignore.txt</span><br><span class="line">        ali.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br></pre></td></tr></table></figure>
+
+<p>没错，就是个普通文件，它并没有让git忽略掉<code>ali.txt</code>文件，那咋办？没错，你可能会想到手动改后缀名呗，那我们来看一下：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925133517166.png" alt="image-20200925133517166"></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925133740607.png" alt="image-20200925133740607"></p>
+<p>坑爹的Windows就是不让你改，想砸电脑啊有木有？那可千万别砸，大好几千呢，总有解决问题的方法的。</p>
+<p>之前介绍过Notepad++这款软件，这个软件真的超好用，没装的装一下。打开Notepad++，新建文件（中文界面，都是各界精英肯定会），然后在文件中输入一下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ali.txt</span><br></pre></td></tr></table></figure>
+
+<p>没错，就上面一行，然后<code>Ctrl + S</code>保存，这个时候，重点来了（敲黑板）：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925135601734.png" alt="image-20200925135601734"></p>
+<p>然后去<code>learngit</code>这个目录下看看，有没有<code>.gitignore</code>文件，接下来就是见证奇迹的时刻：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925135845470.png" alt="image-20200925135845470"></p>
+<p><code>.gitignore</code>诞生了，现在来看看git是怎么看待这个文件的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        .gitignore</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br></pre></td></tr></table></figure>
+
+<p>发现没有，<code>ali.txt</code>文件不见了，这说明我们的<code>.gitignore</code>文件生效了，这个时候，我们只需要把<code>.gitignore</code>文件添加到暂存区，然后commit提交到git仓库就行了。当然你不暂存，不提交，都是可以的，它照样可以生效，只是不暂存不提交，你之后每次使用<code>git status</code>命令，都能看见它，你说烦不烦，所以还是乖乖暂存提交吧</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add .gitignore</span><br><span class="line">$ git commit -m <span class="string">&#x27;add file .gitignore &#x27;</span></span><br><span class="line">[master f2e4019] add file .gitignore</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 .gitignore</span><br><span class="line"><span class="comment"># 在查看一下文件状态 </span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+<p>我们再来看看<code>ali.txt</code>是不是还在我们磁盘上：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925140745067.png" alt="image-20200925140745067"></p>
+<p>嗯，还在，说明我真的没有删它，它真的是被git给忽略掉了。OK，示例结束。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925141042753.png" alt="image-20200925141042753"></p>
+<p><strong>这里有一个奇葩的需求：</strong>让<code>.gitignore</code>忽略自己，经典的我忽略我自己，可还行。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200918042109655.png" alt="image-20200918042109655"></p>
+<p>但是 <code>.gitignore</code> 作为一个仓库结构的一部分，本身就应该是存在的，如果什么都不想忽略，那么就没必要建一个文件了。真碰到这种需求，总归还是要解决的。如果把<code>.gitignore</code>加到<code>.gitignore</code>文件中，是不起作用的。</p>
+<p><strong>解决办法：</strong></p>
+<p>编辑当前项目下的<code>./git/info/exclude</code>文件，然后将需要忽略提交的<code>.gitignore</code>文件路径写入就行了，注意写入文件的路径是相对项目根目录而言的。</p>
+<p>查看已暂存和未暂存的修改</p>
+<p>如果你想知道某个文件具体修改了什么地方，可以用 <code>git diff</code> 命令。</p>
+<p>现在我们再次修改<code>readme.txt</code>文件后暂存，然后编辑<code>test.txt</code>文件后先不暂存，运行<code>git status</code>命令将会看到：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   test.txt</span><br></pre></td></tr></table></figure>
+
+<p>要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 <code>git diff</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git diff</span><br><span class="line">diff --git a/test.txt b/test.txt</span><br><span class="line">index 879fceb..9e431f3 100644</span><br><span class="line">--- a/test.txt</span><br><span class="line">+++ b/test.txt</span><br><span class="line">@@ -1,2 +1,3 @@</span><br><span class="line"> this is a <span class="built_in">test</span> file</span><br><span class="line">-add some file		<span class="comment"># 前面是-说明是删除的内容</span></span><br><span class="line">\ No newline at end of file <span class="comment"># 在文件末尾没有换行符，这个是编辑器和系统的问题，我没有乱说，我有图为证，后面上Linux下的图</span></span><br><span class="line">+add some file		<span class="comment"># 前面是+说明这是新增的内容 至于为什么先删后加，通过和Linux系统的对比，我认为是系统或者编辑器的问题，如果有知道真相的小伙伴，可以告诉我，帮我纠正一下，共同进步，后面上Linux下的图</span></span><br><span class="line">+<span class="built_in">test</span> git diff		<span class="comment"># 前面是+说明这是新增的内容</span></span><br><span class="line">\ No newline at end of file</span><br></pre></td></tr></table></figure>
+
+<p>此命令比较的是修改之后还<strong>没有暂存</strong>起来的变化内容。</p>
+<p>想要查看已暂存文件修改了什么内容，可以用<code>git diff --staged</code>命令。这条命令将比对<strong>已暂存文件</strong>与最后一次提交的文件差异：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git diff --staged</span><br><span class="line">diff --git a/readme.txt b/readme.txt</span><br><span class="line">index 7cc6fe7..67386fd 100644</span><br><span class="line">--- a/readme.txt</span><br><span class="line">+++ b/readme.txt</span><br><span class="line">@@ -4,4 +4,5 @@ Git has a mutable index called stage.</span><br><span class="line"> Git is so good</span><br><span class="line"> Linus is god</span><br><span class="line"> add app.txt file</span><br><span class="line">-add google.txt file</span><br><span class="line">\ No newline at end of file</span><br><span class="line">+add google.txt file</span><br><span class="line">+<span class="built_in">test</span> git diff</span><br><span class="line">\ No newline at end of file</span><br></pre></td></tr></table></figure>
+
+<p>Linux系统下，同样这两个文件，同样的内容，同样的操作方式：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925145534853.png" alt="image-20200925145534853"></p>
+<p>可以看到，只是系统和编辑器不同，Windows多出了几行无关的内容（警告信息），并且出现了先删除后添加的情况，所以我猜测是系统和编辑器的不同造成的，<strong>如果不是，希望知情的小伙伴可以告诉我真正原因！</strong></p>
+<p>回归正题，请注意，<code>git diff</code>本身只显示尚<strong>未暂存</strong>的改动，而不是自上次提交以来所做的所有改动。 所以有时候你一下子暂存了所有更新过的文件，运行 <code>git diff</code> 后却什么也没有，就是这个原因。</p>
+<p>像之前说的，<strong>暂存</strong> <code>test.txt</code> 后<strong>再修改</strong>（自己随便修改一下），可以使用 <code>git status</code> 查看已被暂存的修改或未被暂存的修改。 如果我们的环境（终端输出）看起来如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add test.txt</span><br><span class="line"><span class="comment"># 修改test.txt文件</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   test.txt</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>test.txt</code>出现在了暂存和未暂存的两种状态，现在运行<code>git diff</code>看暂存前后的变化：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git diff</span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> test.txt.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory <span class="comment"># 可能会出现警告信息，请忽略它</span></span><br><span class="line">diff --git a/test.txt b/test.txt</span><br><span class="line">index 117f3a6..940c7b0 100644</span><br><span class="line">--- a/test.txt</span><br><span class="line">+++ b/test.txt</span><br><span class="line">@@ -1,3 +1,4 @@</span><br><span class="line"> this is a <span class="built_in">test</span> file</span><br><span class="line"> add some file</span><br><span class="line"> <span class="built_in">test</span> git diff</span><br><span class="line">+<span class="comment"># test line</span></span><br></pre></td></tr></table></figure>
+
+<p>然后用<code>git diff --cached</code>查看已经暂存起来的变化（<code>--staged</code>和<code>cached</code>作用是一样的）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git diff --cached</span><br><span class="line"><span class="comment"># readme.txt</span></span><br><span class="line">diff --git a/readme.txt b/readme.txt</span><br><span class="line">index 7cc6fe7..bcb9d8f 100644</span><br><span class="line">--- a/readme.txt</span><br><span class="line">+++ b/readme.txt</span><br><span class="line">@@ -4,4 +4,5 @@ Git has a mutable index called stage.</span><br><span class="line"> Git is so good</span><br><span class="line"> Linus is god</span><br><span class="line"> add app.txt file</span><br><span class="line">-add google.txt file</span><br><span class="line">\ No newline at end of file</span><br><span class="line">+add google.txt file</span><br><span class="line">+<span class="built_in">test</span> git diff</span><br><span class="line"><span class="comment"># test.txt 重点看这里 是不是没有# test line这一行内容</span></span><br><span class="line">diff --git a/test.txt b/test.txt</span><br><span class="line">index 879fceb..117f3a6 100644</span><br><span class="line">--- a/test.txt</span><br><span class="line">+++ b/test.txt</span><br><span class="line">@@ -1,2 +1,3 @@</span><br><span class="line"> this is a <span class="built_in">test</span> file</span><br><span class="line">-add some file</span><br><span class="line">\ No newline at end of file</span><br><span class="line">+add some file</span><br><span class="line">+<span class="built_in">test</span> git diff</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里我们先不提交，因为下面我们就要来讲提交了。</strong></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923165017057.png" alt="你以为这就结束了吗？"></p>
+<p>然而并没有！</p>
+<p>分析文件差异也可以使用图形化的工具或外部 diff 工具来比较差异，比如DIffMerge，其他工具，自己去找一下。</p>
+<p>还可以使用 <code>git difftool</code> 命令来调用 emerge 或 vimdiff 等软件输出 diff 的分析结果。 使用 <code>git difftool --tool-help</code> 命令来看你的系统支持哪些 git Diff 插件。<code>git difftool</code>会依次输出所有文件的分析结果，如果想看某一个文件的diff结果，就加上文件全名，比如：xxx路径下的test.txt，应该写成：<code>git difftool xxx/text.txt</code></p>
+<h2 id="提交更新"><a href="#提交更新" class="headerlink" title="提交更新"></a>提交更新</h2><p>在提交之前，务必确认还有什么已修改或者新建的文件还没有<code>git add</code>过，否则提交的时候不会记录这些尚未暂存的变化。 这些已修改但未暂存的文件只会保留在本地磁盘。所以，每次准备提交前，先用 <code>git status</code> 看下，你所需要的文件是不是都已暂存起来了， 然后再运行提交命令 <code>git commit</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure>
+
+<p>直接运行该命令，会启动你选择的文本编辑器来输入提交说明，如果不输入提交说明，就会提交失败。</p>
+<p>编辑器会显示类似下面的文本信息（默认使用的是vim编辑器，可配置自己的编辑器）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Please enter the commit message for your changes. Lines starting</span></span><br><span class="line"><span class="comment"># with &#x27;#&#x27; will be ignored, and an empty message aborts the commit.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#       modified:   readme.txt</span></span><br><span class="line"><span class="comment">#       modified:   test.txt</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes not staged for commit:</span></span><br><span class="line"><span class="comment">#       modified:   test.txt</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，默认的提交消息包含最后一次运行 <code>git status</code> 的输出，放在注释行里，另外开头还有一个空行，供你输入提交说明。 你完全可以去掉这些注释行，不过留着也没关系，多少能帮你回想起这次提交更新的内容有哪些。</p>
+<p>更详细的内容修改提示可以用 <code>git commit -v</code> 查看，这会将你所作的更改的 diff 输出呈现在编辑器中，以便让你知道本次提交具体作出哪些修改。</p>
+<p><strong>Tip：</strong>启动的编辑器是通过 Shell 的环境变量 <code>EDITOR</code> 指定的，一般为 vim 或 emacs。 当然也可以 使用 <code>git config --global core.editor</code> 命令设置你喜欢的编辑器。例如：<code>git config --global core.editor vim</code></p>
+<p>另外，你也可以在 <code>git commit</code> 命令后添加 <code>-m</code> 选项，将提交信息与命令放在同一行，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;commit by xxx&#x27;</span></span><br><span class="line">[master c8731ea] commit by xxx</span><br><span class="line"> 2 files changed, 4 insertions(+), 2 deletions(-)</span><br></pre></td></tr></table></figure>
+
+<p>现在已经进行了一次提交！ 可以看到，提交后它会告诉你，当前是在哪个分支（<code>master</code>）提交的，本次提交的完整 SHA-1 校验和（<code>c8731ea</code>）是什么，以及在本次提交中，有多少文件修订过，多少行添加和删改过。</p>
+<h2 id="跳过使用暂存区提交更新"><a href="#跳过使用暂存区提交更新" class="headerlink" title="跳过使用暂存区提交更新"></a>跳过使用暂存区提交更新</h2><p>git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 <code>git commit</code> 加上 <code>-a</code> 选项，git 就会自动把所有<strong>已经跟踪过</strong>的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status <span class="comment"># 查看文件状态 ，可以看到test.txt未被暂存</span></span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"><span class="comment"># 提交未被暂存的文件</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;use commit -a -m  command to commit&#x27;</span></span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> test.txt.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line">[master d1e9096] use commit -a -m  <span class="built_in">command</span> to commit</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"><span class="comment"># 再次查看文件状态</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+<p>提交之前不再需要 <code>git add</code> 文件了。 这是因为 <code>-a</code> 选项使本次提交包含了所有修改过的文件。 <strong>这很方便，但是要小心，有时这个选项会将不需要的文件添加到提交中。</strong></p>
+<h2 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h2><p>要从 git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后<strong>提交</strong>。 可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+<p>如果只是简单地从工作目录中手工删除文件，运行 <code>git status</code> 时就会在 “Changes not staged for commit” 部分（也就是 <strong>未暂存清单</strong>）看到：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rm test.txt <span class="comment"># 从硬盘中删除test.txt文件，见图</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add/rm &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        deleted:    test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925172443275.png" alt="image-20200925172443275"></p>
+<p>然后再运行 <code>git rm</code> 记录此次移除文件的操作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rm test.txt <span class="comment"># 从暂存区和硬盘中删除test.txt</span></span><br><span class="line">rm <span class="string">&#x27;test.txt&#x27;</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        deleted:    test.txt</span><br><span class="line"><span class="comment"># 提交，提交之后，上面 deleted 信息就不见了</span></span><br><span class="line">$ git commit -m <span class="string">&#x27;delete test.txt&#x27;</span></span><br><span class="line">[master a8de87f] delete test.txt</span><br><span class="line"> 1 file changed, 4 deletions(-)</span><br><span class="line"> delete mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>提交之后，<code>test.txt</code>文件就不在纳入版本管理，也就是从仓库删除了。如果要删除之前修改过或已经放到暂存区的文件，则必须使用强制删除选项 <code>-f</code>（译注：即 force 的首字母），否则会报错。 这是一种安全特性，用于防止误删尚未添加到快照的数据，强制删除的数据不能被 git 恢复。</p>
+<p>另外一种情况是，我们想把文件从 git 仓库中删除（或从暂存区域移除），但仍然希望保留在当前工作目录中。 换句话说，你想让文件保留在磁盘，但是并不想让 git 继续跟踪。 当你忘记添加 <code>.gitignore</code> 文件，不小心把一个很大的日志文件或一堆 <code>.a</code> 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 为达到这一目的，使用 <code>--cached</code> 选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rm --cached readme.txt</span><br><span class="line">rm <span class="string">&#x27;readme.txt&#x27;</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        deleted:    readme.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        readme.txt</span><br><span class="line"><span class="comment"># 提交</span></span><br><span class="line">$ git commit -m <span class="string">&#x27;delete readme.txt from repository and stage&#x27;</span></span><br><span class="line">[master cfef1ea] delete readme.txt from repository and stage</span><br><span class="line"> 1 file changed, 8 deletions(-)</span><br><span class="line"> delete mode 100644 readme.txt</span><br><span class="line"><span class="comment"># 查看文件状态，readme.txt为未跟踪状态，并没有从本地硬盘删除</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        readme.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>git rm</code> 命令后面可以列出文件或者目录的名字，也可以使用 <code>glob</code> 模式（正则表达式）。比如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rm <span class="built_in">log</span>/\*.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<p>此命令删除 <code>log/</code> 目录下扩展名为 <code>.log</code> 的所有文件。 类似的比如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rm \*~</span><br></pre></td></tr></table></figure>
+
+<p>该命令会删除所有名字以 <code>~</code> 结尾的文件。</p>
+<h2 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h2><p>要在 git 中对文件改名，可以这么做：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git mv file_from file_to</span><br></pre></td></tr></table></figure>
+
+<p>此时查看文件状态信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先修改文件名，比如：把app.txt改为application.txt</span></span><br><span class="line">$ git mv app.txt application.txt</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        renamed:    app.txt -&gt; application.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        readme.txt</span><br><span class="line"><span class="comment"># 记得提交一下</span></span><br><span class="line">$ git commit -m <span class="string">&#x27;rename app.txt -&gt; application.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>其实，运行 <code>git mv</code> 就相当于运行了下面三条命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mv app.txt application.txt</span><br><span class="line">$ git rm app.txt</span><br><span class="line">$ git add application.txt</span><br></pre></td></tr></table></figure>
+
+<p>分开操作，git 也会意识到这是一次重命名，所以不管何种方式结果都一样。 两者唯一的区别是，<code>mv</code> 是一条命令而非三条命令，直接用 <code>git mv</code> 方便得多。 不过有时候用其他工具批处理重命名的话，要记得在提交前删除旧的文件名，再添加新的文件名。</p>
+<h1 id="5、查看提交历史"><a href="#5、查看提交历史" class="headerlink" title="5、查看提交历史"></a>5、查看提交历史</h1><p>如果想要查看提交历史，可以使用<code>git log</code>命令。</p>
+<p>现在来看看我们学习了这么久，都进行了哪些提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> <span class="comment"># 查看提交历史，这里只贴了部分</span></span><br><span class="line">commit 6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master) <span class="comment"># SHA-1校验和·	1-</span></span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt; <span class="comment"># 作者的名字和邮箱</span></span><br><span class="line">Date:   Fri Sep 25 18:31:06 2020 +0800 <span class="comment"># 提交时间</span></span><br><span class="line"></span><br><span class="line">    rename app.txt -&gt; application.txt <span class="comment"># 提交说明</span></span><br><span class="line"></span><br><span class="line">commit cfef1ea425a67883dba89d4b0d4503cda1648adb</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:18:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete readme.txt from repository and stage</span><br><span class="line"></span><br><span class="line">commit d5051a2d851d6d5e02a4d4d8808f72af42ea38f0</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:10:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete test.txt</span><br><span class="line"></span><br><span class="line">commit d1e9096cdee2ddca0c8213f887e02607d8b88b45</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 16:58:12 2020 +0800</span><br><span class="line"></span><br><span class="line">    use commit -a -m  <span class="built_in">command</span> to commit</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>在不传入任何参数的情况下，<code>git log</code> 会按时间先后顺序列出所有的提交，最近的更新排在最上面。这个命令会列出每个提交的 SHA-1 校验和作者的名字和电子邮件地址、提交时间以及提交说明。</p>
+<p><code>git log</code> 有许多参数可以选择，<code>-p</code> 或 <code>--patch</code> ，它会显示每次提交所引入的差异（按 <strong>补丁</strong> 的格式输出），你也可以限制显示的日志条目数量，例如使用 <code>-2</code> 选项来只显示最近的两次提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -p -2</span><br><span class="line">commit 6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:31:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    rename app.txt -&gt; application.txt</span><br><span class="line"></span><br><span class="line">diff --git a/app.txt b/application.txt</span><br><span class="line">similarity index 100%</span><br><span class="line">rename from app.txt</span><br><span class="line">rename to application.txt</span><br><span class="line"></span><br><span class="line">commit cfef1ea425a67883dba89d4b0d4503cda1648adb</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:18:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete readme.txt from repository and stage</span><br><span class="line"></span><br><span class="line">diff --git a/readme.txt b/readme.txt</span><br><span class="line">deleted file mode 100644</span><br><span class="line">index bcb9d8f..0000000</span><br><span class="line">--- a/readme.txt</span><br><span class="line">+++ /dev/null</span><br><span class="line">@@ -1,8 +0,0 @@</span><br><span class="line">-Git is a version control system.</span><br><span class="line">-Git is free software.</span><br><span class="line">-Git has a mutable index called stage.</span><br><span class="line">-Git is so good</span><br><span class="line">-Linus is god</span><br><span class="line">-add app.txt file</span><br><span class="line">-add google.txt file</span><br><span class="line">-<span class="built_in">test</span> git diff</span><br></pre></td></tr></table></figure>
+
+<p>该选项除了显示基本信息之外，还附带了每次提交的变化。 当进行代码审查，或者快速浏览某个同事的提交所带来的变化的时候，这个参数就非常有用了。</p>
+<p>如果你想看到每次提交的简略统计信息，可以使用 <code>--stat</code> 参数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --<span class="built_in">stat</span></span><br><span class="line">commit 6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:31:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    rename app.txt -&gt; application.txt</span><br><span class="line"></span><br><span class="line"> app.txt =&gt; application.txt | 0</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"></span><br><span class="line">commit cfef1ea425a67883dba89d4b0d4503cda1648adb</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:18:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete readme.txt from repository and stage</span><br><span class="line"></span><br><span class="line"> readme.txt | 8 --------</span><br><span class="line"> 1 file changed, 8 deletions(-)</span><br><span class="line"> </span><br><span class="line"> ......</span><br><span class="line"> </span><br><span class="line">commit c8731ea86c01c6e9597c14189651df80b1701395</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 16:53:37 2020 +0800</span><br><span class="line"></span><br><span class="line">    commit by xxx</span><br><span class="line"><span class="comment"># 被修改的文件  受影响的行数   	 +表示添加，-表示删除，符号个数表示添加或删除了多少行</span></span><br><span class="line"> readme.txt |    3 				++-</span><br><span class="line"> test.txt   |    3 				++-</span><br><span class="line"> 2 files changed, 4 insertions(+), 2 deletions(-) <span class="comment"># 总结</span></span><br></pre></td></tr></table></figure>
+
+<p><code>--stat</code> 参数在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
+<p>另一个非常有用的选项是 <code>--pretty</code>。 这个选项可以使用不同于默认格式的方式展示提交历史。 这个选项有一些内建的子选项供你使用。 比如 <code>oneline</code> 会将每个提交放在一行显示，在浏览大量的提交时非常有用。 另外还有 <code>short</code>，<code>full</code> 和 <code>fuller</code> 选项，它们展示信息的格式基本一致，但是详尽程度不一：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line">6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master) rename app.txt -&gt; application.txt</span><br><span class="line">cfef1ea425a67883dba89d4b0d4503cda1648adb delete readme.txt from repository and stage</span><br><span class="line">d5051a2d851d6d5e02a4d4d8808f72af42ea38f0 delete test.txt</span><br><span class="line">d1e9096cdee2ddca0c8213f887e02607d8b88b45 use commit -a -m  <span class="built_in">command</span> to commit</span><br><span class="line">c8731ea86c01c6e9597c14189651df80b1701395 commit by xxx</span><br><span class="line">f2e4019f887c78efefb9e33939fe9fa9fe10a4da add file .gitignore</span><br><span class="line">b9cb70fb52a212cd017a4d62b6ed60d434d79fa5 update file content and add app.txt google.txt</span><br><span class="line">0086f1a9f1f1152ec52aa9f526e870b0618138a3 update readme.txt</span><br><span class="line">8ec32e3bc32518befcb10740cd6e58dd6c5f7a96 understand how stage works</span><br><span class="line">d1bdde3d4757173c06ed6cf4ac005c39c00ddf58 write a readme file</span><br></pre></td></tr></table></figure>
+
+<p>如果你想定制记录的显示格式，可以使用<code>format</code>，这样的输出对后期提取分析格外有用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=format:<span class="string">&quot;%h - %an, %ar : %s&quot;</span></span><br><span class="line">6a1006a - hahaha, 63 minutes ago : rename app.txt -&gt; application.txt</span><br><span class="line">cfef1ea - hahaha, 76 minutes ago : delete readme.txt from repository and stage</span><br><span class="line">d5051a2 - hahaha, 84 minutes ago : delete test.txt</span><br><span class="line">d1e9096 - hahaha, 3 hours ago : use commit -a -m  <span class="built_in">command</span> to commit</span><br><span class="line">c8731ea - hahaha, 3 hours ago : commit by xxx</span><br><span class="line">f2e4019 - hahaha, 5 hours ago : add file .gitignore</span><br><span class="line">b9cb70f - hahaha, 7 hours ago : update file content and add app.txt google.txt</span><br><span class="line">0086f1a - hahaha, 2 days ago : update readme.txt</span><br><span class="line">8ec32e3 - hahaha, 2 days ago : understand how stage works</span><br><span class="line">d1bdde3 - hahaha, 2 days ago : write a readme file</span><br></pre></td></tr></table></figure>
+
+<p><code>git log --pretty=format</code> 接受的常用格式占位符的写法及其代表的意义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>%H</code></td>
+<td align="left">提交的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%h</code></td>
+<td align="left">提交的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%T</code></td>
+<td align="left">树的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%t</code></td>
+<td align="left">树的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%P</code></td>
+<td align="left">父提交的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%p</code></td>
+<td align="left">父提交的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%an</code></td>
+<td align="left">作者名字</td>
+</tr>
+<tr>
+<td align="left"><code>%ae</code></td>
+<td align="left">作者的电子邮件地址</td>
+</tr>
+<tr>
+<td align="left"><code>%ad</code></td>
+<td align="left">作者修订日期（可以用 –date=选项 来定制格式）</td>
+</tr>
+<tr>
+<td align="left"><code>%ar</code></td>
+<td align="left">作者修订日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td align="left"><code>%cn</code></td>
+<td align="left">提交者的名字</td>
+</tr>
+<tr>
+<td align="left"><code>%ce</code></td>
+<td align="left">提交者的电子邮件地址</td>
+</tr>
+<tr>
+<td align="left"><code>%cd</code></td>
+<td align="left">提交日期</td>
+</tr>
+<tr>
+<td align="left"><code>%cr</code></td>
+<td align="left">提交日期（距今多长时间）</td>
+</tr>
+<tr>
+<td align="left"><code>%s</code></td>
+<td align="left">提交说明</td>
+</tr>
+</tbody></table>
+<p><strong>作者和提交者的区别：</strong></p>
+<p>作者：实际对项目做出修改的人</p>
+<p>提交者：将作者对项目做出的修改提交的仓库的人，更多时候，作者和提交者都为同一人。</p>
+<p>当 <code>oneline</code> 或 <code>format</code> 与另一个 <code>log</code> 选项 <code>--graph</code> 结合使用时尤其有用。 这个选项添加了一些 ASCII 字符串来形象地展示你的分支、合并历史：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=formt:<span class="string">&quot;%h %s&quot;</span> --graph <span class="comment"># 还没有将分支，所以这个看不到效果，之后将分支时再演示</span></span><br></pre></td></tr></table></figure>
+
+<p><code>git log</code> 的常用选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-p</code></td>
+<td>按补丁格式显示每个提交引入的差异。</td>
+</tr>
+<tr>
+<td><code>--stat</code></td>
+<td>显示每次提交的文件修改统计信息。</td>
+</tr>
+<tr>
+<td><code>--shortstat</code></td>
+<td>只显示 –stat 中最后的行数修改添加移除统计。</td>
+</tr>
+<tr>
+<td><code>--name-only</code></td>
+<td>仅在提交信息后显示已修改的文件清单。</td>
+</tr>
+<tr>
+<td><code>--name-status</code></td>
+<td>显示新增、修改、删除的文件清单。</td>
+</tr>
+<tr>
+<td><code>--abbrev-commit</code></td>
+<td>仅显示 SHA-1 校验和所有 40 个字符中的前几个字符。</td>
+</tr>
+<tr>
+<td><code>--relative-date</code></td>
+<td>使用较短的相对时间而不是完整格式显示日期（比如“2 weeks ago”）。</td>
+</tr>
+<tr>
+<td><code>--graph</code></td>
+<td>在日志旁以 ASCII 图形显示分支与合并历史。</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td>使用其他格式显示历史提交信息。可用的选项包括 oneline、short、full、fuller 和 format（用来定义自己的格式）。</td>
+</tr>
+<tr>
+<td><code>--oneline</code></td>
+<td><code>--pretty=oneline --abbrev-commit</code> 合用的简写。</td>
+</tr>
+</tbody></table>
+<h2 id="限制输出长度"><a href="#限制输出长度" class="headerlink" title="限制输出长度"></a>限制输出长度</h2><p>我们可以使用<code>-&lt;n&gt;</code>选项限制输出长度，其中<code>n</code>可以是任何整数，表示显示最近的<code>n</code>条提交，例如前面提到的<code>-2</code>，显示最近的两条提交。不过这个不是很实用，如果输入的数字过大，git默认会自动分页，所以一次也就只能看到一页的内容。</p>
+<p>但是，类似 <code>--since</code> 和 <code>--until</code> 这种按照时间作限制的选项很有用。 例如，下面的命令会列出最近一周的所有提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --since=1.weeks <span class="comment"># 最近一周的所有提交</span></span><br><span class="line">$ git <span class="built_in">log</span> --since=<span class="string">&quot;1 day ago&quot;</span>  <span class="comment"># 一天前的提交，下面是一天前的提交</span></span><br><span class="line">commit 6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:31:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    rename app.txt -&gt; application.txt</span><br><span class="line"></span><br><span class="line">commit cfef1ea425a67883dba89d4b0d4503cda1648adb</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:18:22 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete readme.txt from repository and stage</span><br><span class="line"></span><br><span class="line">commit d5051a2d851d6d5e02a4d4d8808f72af42ea38f0</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:10:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    delete test.txt</span><br><span class="line"></span><br><span class="line">commit d1e9096cdee2ddca0c8213f887e02607d8b88b45</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 16:58:12 2020 +0800</span><br><span class="line"></span><br><span class="line">    use commit -a -m  <span class="built_in">command</span> to commit</span><br><span class="line"></span><br><span class="line">commit c8731ea86c01c6e9597c14189651df80b1701395</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 16:53:37 2020 +0800</span><br><span class="line"></span><br><span class="line">    commit by xxx</span><br></pre></td></tr></table></figure>
+
+<p>该命令可用的格式十分丰富——可以是类似 <code>&quot;2020-01-15&quot;</code> 的具体的某一天，也可以是类似 <code>&quot;1 years 1 day 3 minutes ago&quot;</code> 的相对日期。</p>
+<p>还可以过滤出匹配指定条件的提交。 用 <code>--author</code> 选项显示指定作者的提交，用 <code>--grep</code> 选项搜索提交说明中的关键字。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=<span class="string">&quot;hehehe&quot;</span> --grep=<span class="string">&quot;rename&quot;</span> <span class="comment"># 查看用户名为&quot;hahaha&quot; 并且 提交说明中有rename关键字的提交</span></span><br><span class="line">commit 6a1006ae257767ef55ee588cf9481eb49a369921 (HEAD -&gt; master)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Fri Sep 25 18:31:06 2020 +0800</span><br><span class="line"></span><br><span class="line">    rename app.txt -&gt; application.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>你可以指定多个 <code>--author</code> 和 <code>--grep</code> 搜索条件，这样会只输出 <strong>任意</strong> 匹配 <code>--author</code> 模式和 <code>--grep</code> 模式的提交。然而，如果你添加了 <code>--all-match</code> 选项， 则只会输出 <strong>所有</strong> 匹配 <code>--grep</code> 模式的提交。</p>
+</blockquote>
+<p>另一个非常有用的过滤器是 <code>-S</code>， 它接受一个字符串参数，并且只会显示那些添加或删除了该字符串的提交。 假设你想找出添加或删除了对某一个特定函数的引用的提交，可以调用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -S function_name</span><br></pre></td></tr></table></figure>
+
+<p>最后一个很实用的 <code>git log</code> 选项是路径（path）， 如果只关心某些文件或者目录的历史提交，可以在 git log 选项的最后指定它们的路径。 因为是放在最后位置上的选项，所以用两个短划线（–）隔开之前的选项和后面限定的路径名。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -- app.txt <span class="comment"># 查看app.txt的相关提交，如果是在某个文件夹下，应该写成git log -- xxx/app.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><code>git log</code>的选项</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-&lt;n&gt;</code></td>
+<td>仅显示最近的 n 条提交。</td>
+</tr>
+<tr>
+<td><code>--since</code>, <code>--after</code></td>
+<td>仅显示指定时间之后的提交。</td>
+</tr>
+<tr>
+<td><code>--until</code>, <code>--before</code></td>
+<td>仅显示指定时间之前的提交。</td>
+</tr>
+<tr>
+<td><code>--author</code></td>
+<td>仅显示作者匹配指定字符串的提交。</td>
+</tr>
+<tr>
+<td><code>--committer</code></td>
+<td>仅显示提交者匹配指定字符串的提交。</td>
+</tr>
+<tr>
+<td><code>--grep</code></td>
+<td>仅显示提交说明中包含指定字符串的提交。</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td>仅显示添加或删除内容匹配指定字符串的提交。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>隐藏合并提交：<br>按照你代码仓库的工作流程，记录中可能有为数不少的合并提交，它们所包含的信息通常并不多。 为了避免显示的合并提交弄乱历史记录，可以为 <code>log</code> 加上 <code>--no-merges</code> 选项。</p>
+</blockquote>
+<h1 id="6、撤销操作"><a href="#6、撤销操作" class="headerlink" title="6、撤销操作"></a>6、撤销操作</h1><h2 id="修补提交"><a href="#修补提交" class="headerlink" title="修补提交"></a>修补提交</h2><p>有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 <code>--amend</code> 选项的提交命令来重新提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令）， 那么快照会保持不变，而你所修改的只是提交信息。</p>
+<p>执行这个命令，文本编辑器启动后，可以看到之前的提交信息。 编辑后保存会覆盖原来的提交信息。</p>
+<p>例如，你提交之后，发现忘记暂存某些需要的修改，可以向下面这样操作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;提交信息&#x27;</span></span><br><span class="line">$ git add forgotten_file <span class="comment"># 添加漏掉的暂存文件</span></span><br><span class="line">$ git commit --amend <span class="comment"># 可以修改提交信息然后重新提交</span></span><br></pre></td></tr></table></figure>
+
+<p>最终你只会有一个提交记录——第二次提交将代替第一次提交的结果。</p>
+<p>这个操作最主要的还是修改<strong>提交信息</strong>，以免自己的仓库被提交信息弄乱了历史版本。</p>
+<p><strong>实战：</strong></p>
+<p>在之前的示例中，我们把readme.txt从仓库中删除之后，一直没有再添加到仓库中，现在正好用这个例子重新加入仓库。</p>
+<p>先修改<code>google.txt</code>文件，使用<code>git add</code>加入暂存区，查看文件状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   google.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>git commit</code>提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">&#x27;modify google.txt&#x27;</span></span><br><span class="line">[master acf1451] modify google.txt</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>将<code>readme.txt</code>加入暂存区，然后使用<code>git commit --amend</code>命令，可以看到上次的提交信息：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200926153221487.png" alt="image-20200926153221487"></p>
+<p>修改提交信息，输入法为英文状态下，按<code>i</code>键，光标移到末尾修改提交内容，修改完成后，同样英文状态下，按下<code>ESC</code>，然后输入<code>:</code>，接着输入<code>wq</code>保存退出，即可看到提交信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit --amend</span><br><span class="line">[master 73d5592] modify google.txt and add file readme.txt</span><br><span class="line"> Date: Sat Sep 26 15:36:23 2020 +0800</span><br><span class="line"> 2 files changed, 10 insertions(+), 1 deletion(-)</span><br><span class="line"> create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>查看最近一次的提交历史：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> -1</span><br><span class="line">commit 73d5592122fe5442f7c8a0398c44c1eda9ade985 (HEAD -&gt; master)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sat Sep 26 15:36:23 2020 +0800</span><br><span class="line"></span><br><span class="line">    modify google.txt and add file readme.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="取消暂存的文件"><a href="#取消暂存的文件" class="headerlink" title="取消暂存的文件"></a>取消暂存的文件</h2><p>如果手抖，把本想分为两次独立提交的文件使用<code>git add *</code>全部加入了暂存区，可以使用<code>git reset HEAD &lt;file&gt;</code>或者<code>git restore --staged &lt;file&gt;</code> 来取消暂存，<code>git status</code>命令其实也给出了提示：</p>
+<p>我们再修改下<code>readme.txt</code>文件，然后暂存，使用<code>git status</code>命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>取消暂存的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git restore --staged readme.txt</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ git reset HEAD readme.txt</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       readme.txt</span><br><span class="line"><span class="comment"># 查看状态，可以看到readme.txt又处于为暂存状态了</span></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>git reset</code>命令更多的用于回退版本（稍后讲），所以只是想取消暂存的文件，建议使用<code>git restore --staged &lt;file&gt;</code>命令</p>
+<h2 id="撤销对文件的修改"><a href="#撤销对文件的修改" class="headerlink" title="撤销对文件的修改"></a>撤销对文件的修改</h2><p>如果文件被改的一团糟了，这个时候想撤销全部更改，你可以使用<code>git restore &lt;file&gt;</code>来撤销更改</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 例如，我想撤销刚才readme.txt的更改</span></span><br><span class="line">$ git restore readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>此时查看文件内容，你会发现你所有的修改都被撤销了</p>
+<p>在 git 中还可以使用<code>git checkout -- &lt;file&gt;</code>命令撤销对文件的修改，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;test checkout -- command&#x27;</span> &gt;&gt; readme.txt <span class="comment"># 对readme.txt文件追加内容</span></span><br><span class="line">$ git checkout -- readme.txt <span class="comment"># 撤销修改</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>git checkout -- &lt;file&gt;</code>命令撤销修改，其实是 git 使用了最近提交的版本覆盖了它，<code>git checkout</code>命令还有其他用途，稍有不慎，就会造成意外情况，所以慎用。</p>
+<p><strong>推荐使用<code>git restore &lt;file&gt;</code>命令来撤销修改，毕竟git自己推荐的</strong></p>
+<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><p>讲这个之前，我们先进行3次提交，例如：</p>
+<p>第一次修改<code>readme.txt</code>文件，添加内容<code>add version 1.0</code>，然后提交。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -a -m <span class="string">&#x27;readme.txt version 1.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>第二次修改<code>readme.txt</code>文件，添加内容<code>add version 2.0</code>，然后提交。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -a -m <span class="string">&#x27;readme.txt version 2.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>第三次修改<code>readme.txt</code>文件，添加内容<code>add version 3.0</code>，然后提交。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -a -m <span class="string">&#x27;readme.txt version 3.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在来看看最近四次的提交历史：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline -4</span><br><span class="line"><span class="comment"># commitID（可以简单的理解为版本号）           提交说明</span></span><br><span class="line">0b1cde03e2ec38c4d43c090fa1d709894eb441a2 (HEAD -&gt; master) readme.txt version 3.0</span><br><span class="line">4b4566931f544da69ee1d6ef9d5c26af7e8108d8 readme.txt version 2.0</span><br><span class="line">d3c72dd5ba02000c359d3b7b524250f42d3fade5 readme.txt version 1.0</span><br><span class="line">73d5592122fe5442f7c8a0398c44c1eda9ade985 modify google.txt and add file readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果现在我们要回退一个版本，也就是说，我现在需要回到<code>readme.txt version 2.0</code>这个版本，就可以使用<code>git reset --hard HEAD^</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 4b45669 readme.txt version 2.0</span><br><span class="line"><span class="comment"># 查看提交历史： 可以发现readme.txt version 3.0已经不见了</span></span><br><span class="line">$ git <span class="built_in">log</span> --pretty=oneline -4</span><br><span class="line">4b4566931f544da69ee1d6ef9d5c26af7e8108d8 (HEAD -&gt; master) readme.txt version 2.0</span><br><span class="line">d3c72dd5ba02000c359d3b7b524250f42d3fade5 readme.txt version 1.0</span><br><span class="line">73d5592122fe5442f7c8a0398c44c1eda9ade985 modify google.txt and add file readme.txt</span><br><span class="line">6a1006ae257767ef55ee588cf9481eb49a369921 rename app.txt -&gt; application.txt</span><br><span class="line"><span class="comment"># 查看readme.txt文件内容，之前添加的add version 3.0 也不见了，也就是说“时光倒流了”，版本确实回退了</span></span><br><span class="line">$ cat readme.txt</span><br><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git is so good</span><br><span class="line">Linus is god</span><br><span class="line">add app.txt file</span><br><span class="line">add google.txt file</span><br><span class="line"><span class="built_in">test</span> git diff</span><br><span class="line">add version 1.0</span><br><span class="line">add version 2.0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>HEAD在git中是一个特殊的指针，指向当前所在的本地分支，这里只有一个<code>master</code>分支，所以它指向的就是<code>master</code>分支，在上面的提交历史也可一看到HEAD指向的是谁(HEAD -&gt; master)。不理解没关系，后面分支还会讲到。</p>
+</blockquote>
+<p><code>HEAD^</code>表示的是上一个版本，那么上上一个版本呢？可以写成<code>HEAD^^</code>，那么要回到上10个版本怎么办？总不能写10个<code>^</code>吧，其实可以写成这个<code>HEAD~10</code>。当然如果要回退很多个版本，自己手动数是不可取的，这个时候，<code>commitId</code>的作用就体现出来了，比如现在我们要回退到<code>readme.txt version 1.0</code>这个版本，我们可以使用<code>git reset --hard &lt;commitId&gt;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard d3c72dd</span><br><span class="line">HEAD is now at d3c72dd readme.txt version 1.0</span><br><span class="line"><span class="comment"># 查看 readme.txt 内容 版本回退成功</span></span><br><span class="line">$ cat readme.txt</span><br><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git is so good</span><br><span class="line">Linus is god</span><br><span class="line">add app.txt file</span><br><span class="line">add google.txt file</span><br><span class="line"><span class="built_in">test</span> git diff</span><br><span class="line">add version 1.0</span><br></pre></td></tr></table></figure>
+
+<p>我们在使用<code>commitId</code>时，可以不必要写完整的<code>commitId</code>，通常使用<code>8~10</code>个字符就可以精确指定到某个版本，如果怕产生歧义，就多写几位。</p>
+<p>现在版本是回退成功了，那如果手抖，回退版本时，退的太多了怎么办？或者说，后悔了，想回到未来的某个版本怎么办，现在使用<code>git log</code>也看不到回退前的<code>commitId</code>了。<strong>那么我告诉你，这个世界上是没有后悔药的。</strong></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200926181856685.png" alt="image-20200926181856685"></p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200926182357354.png" alt="image-20200926182357354"></p>
+<p>其他事不存在后悔药，但是git是有后悔药吃的。</p>
+<p>git在后台会保存一个引用日志（reflog）， 引用日志记录了最近几个月你的 HEAD 和分支引用所指向的历史。</p>
+<p>你可以使用 <code>git reflog</code> 来查看引用日志：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">d3c72dd (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to d3c72dd</span><br><span class="line">4b45669 HEAD@&#123;1&#125;: reset: moving to head^</span><br><span class="line">0b1cde0 HEAD@&#123;2&#125;: commit: readme.txt version 3.0</span><br><span class="line">4b45669 HEAD@&#123;3&#125;: commit: readme.txt version 2.0</span><br><span class="line">d3c72dd (HEAD -&gt; master) HEAD@&#123;4&#125;: commit: readme.txt version 1.0</span><br><span class="line">73d5592 HEAD@&#123;5&#125;: commit (amend): modify google.txt and add file readme.txt</span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>通过这个日志，我们可以拿到我们回退前的<code>commitId</code>。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200925133740607.png" alt="惊不惊喜意不意外"></p>
+<p>那现在，我们可以回到“未来”去了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard 0b1cde0</span><br><span class="line">HEAD is now at 0b1cde0 readme.txt version 3.0</span><br><span class="line"><span class="comment">#查看readme.txt 文件内容</span></span><br><span class="line">$ cat readme.txt</span><br><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git is so good</span><br><span class="line">Linus is god</span><br><span class="line">add app.txt file</span><br><span class="line">add google.txt file</span><br><span class="line"><span class="built_in">test</span> git diff</span><br><span class="line">add version 1.0</span><br><span class="line">add version 2.0</span><br><span class="line">add version 3.0</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200926184617424.png" alt="image-20200926184617424"></p>
+<h1 id="7、远程仓库的使用"><a href="#7、远程仓库的使用" class="headerlink" title="7、远程仓库的使用"></a>7、远程仓库的使用</h1><p>目前我们使用到的 Git 命令都是在本地执行，如果你想通过 Git 分享你的代码或者与其他开发人员合作。 你就需要将数据放到一台其他开发人员能够连接的服务器上，这个服务器可以是自己搭建的，如果不想自己搭建，那么我们就是用<a href="https://github.com/">GitHub</a>吧，或者使用<a href="https://gitee.com/">码云</a>。</p>
+<p>GitHub和码云的操作都大同小异，这里就以GitHub为例。</p>
+<p>‘’ Github 是目前全球最大的同性（主要是男性）交友平台. ‘’ ———– 来自知乎</p>
+<p>Github是一个基于git的代码托管平台，个人用户目前可以免费使用公共仓库和私有仓库，公共仓库对所有人可见，私有仓库仅对自己以及你邀请的协作者可见 !</p>
+<p>开发者可以将代码在 GitHub 上开源，可以浏览其它项目的代码，fork 到自己名下做修改，clone 回本地（没有访问权限的 private repo 除外）使用，也可以发起 pull request 向上游提交自己的修改。GitHub 围绕项目（即 Git 中的 Repository）做了许多功能，例如 Wiki，首页（GitHub Pages）等，也可以通过 Graph 来查看其他人 fork 的情况。GitHub 也有 Gists，用于分享代码片段。除此之外也有许多包管理器以 GitHub 作为包仓库 </p>
+<h2 id="注册GitHub账户"><a href="#注册GitHub账户" class="headerlink" title="注册GitHub账户"></a>注册GitHub账户</h2><p>请前往官网：<a href="https://github.com/%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%86%8C%EF%BC%8C%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%E6%88%91%E5%B0%B1%E4%B8%8D%E4%BB%8B%E7%BB%8D%EF%BC%8C%E5%A4%AA%E7%AE%80%E5%8D%95%E4%BA%86%E3%80%82">https://github.com/进行注册，注册账号我就不介绍，太简单了。</a></p>
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>创建好GitHub账户，现在来创建一个新的仓库：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927102143086.png" alt="image-20200927102143086"></p>
+<p>点击了<code>CREATE repository</code>按钮之后，就成功地创建了一个新的git仓库：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927102703841.png" alt="image-20200927102703841"></p>
+<p>目前，这个在GitHub上的<code>learngit</code>仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。</p>
+<h2 id="添加与查看远程仓库"><a href="#添加与查看远程仓库" class="headerlink" title="添加与查看远程仓库"></a>添加与查看远程仓库</h2><p>现在我们创建的远程仓库还没有内容，我们要把本地<code>learngit</code>（本地仓库名和远程仓库名可以不一致）代码推送到远程仓库上去，该怎么办呢？</p>
+<p>首先，我们需要添加远程仓库，使用<code>git remote add &lt;shortname&gt; &lt;url&gt;</code>命令，现在根据GitHub的提示，在本地的<code>learngit</code>仓库下运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add origin https://github.com/tiangoubot/learngit.git</span><br></pre></td></tr></table></figure>
+
+<p>请注意，把上面的<code>tiangoubot</code>替换成你自己的GitHub账户名，否则你本地关联的就是我的远程库了。</p>
+<p>添加后，远程仓库的名字就是<code>origin</code>，这是git默认的叫法，可以修改成别的。</p>
+<p><strong>Tip：如果你使用<code>git clone</code>命令克隆了一个仓库，这个命令会自行添加远程仓库，默认名字就是<code>origin</code></strong></p>
+<p>我们添加完了远程仓库，如果你想查看一下远程仓库，你可以使用<code>git remote</code>命令，你也可以使用<code>git remote -v</code>命令，该命令会显示读写远程仓库使用的 Git 保存的简写与其对应的 URL。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git remote</span><br><span class="line">origin <span class="comment"># 只显示默认的远程仓库名</span></span><br><span class="line">$ git remote -v</span><br><span class="line">origin  https://github.com/tiangoubot/learngit.git (fetch)</span><br><span class="line">origin  https://github.com/tiangoubot/learngit.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>如果你的远程仓库不止一个，该命令会将它们全部列出。</p>
+<h2 id="从远程仓库中抓取与拉取"><a href="#从远程仓库中抓取与拉取" class="headerlink" title="从远程仓库中抓取与拉取"></a>从远程仓库中抓取与拉取</h2><p>如果你已经添加了远程仓库，想要从远程仓库中获取数据，可以称为抓取或者拉取数据，可以使用该命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git fetch &lt;remote&gt;</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ git pull &lt;remote&gt;</span><br></pre></td></tr></table></figure>
+
+<p>那么这两个命令有什么区别？</p>
+<p><code>git fetch</code>命令会访问远程仓库，从中拉取你本地没有的数据。执行完成后，将会用有哪个远程仓库中所有分支的引用，可以随时合并或查看（分支不懂没关系，稍后会介绍），也就是说，这个命令只会把你没有的数据拉取下来，然后就放那里了，你需要手动合并这些数据，如果有冲突，你需要解决这些冲突之后才能进行合并。</p>
+<p><code>git pull</code>命令同样也会访问远程仓库，它会把远程仓库中最新版本的数据拉取下来，然后合并该远程分支到当前分支。也就是说，不管你本地的数据是否进行过修改，也不管是否和远程仓库中的代码有没有冲突，只要是你本地没有的数据，通通拉取下来，然后自动合并数据，有冲突会议远程仓库数据为准进行覆盖。如果这个时候，你对某个文件进行了修改，准备先同步数据再进行提交，然而远程仓库上，有人已经对这个文件进行了修改，你们产生了冲突，你使用了改命令进行拉取数据，那么你的修改，就会被覆盖掉，那你就前功尽弃了。</p>
+<p>所以<code>git pull</code>一定要慎用，以免出现不必要的麻烦，推荐使用<code>git fetch</code>，至于怎么合并数据，在分支中会讲</p>
+<h2 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h2><p>当你想要将 <code>master</code> 分支推送到 <code>origin</code> 服务器时（再次说明，克隆时通常会自动帮你设置好<code>master</code>和<code>origin</code>这两个名字）， 那么运行<code>git push &lt;remote&gt; &lt;brance&gt;</code>这个命令就可以将你的本地代码推送到服务器。</p>
+<p>如果你之前没有推送过代码到GitHub上，那你会看到这个弹窗：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927125150725.png" alt="image-20200927125150725"></p>
+<p>输入自己的GitHub账号密码，登录就行了，你输入账号密码之后，Windows会自动记录你的账号密码，下次就不用再输入了。之后使用下面的命令进行推送：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br><span class="line">Enumerating objects: 44, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (44/44), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (36/36), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (44/44), 3.48 KiB | 127.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 44 (delta 16), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (16/16), <span class="keyword">done</span>.</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">Branch <span class="string">&#x27;master&#x27;</span> <span class="built_in">set</span> up to track remote branch <span class="string">&#x27;master&#x27;</span> from <span class="string">&#x27;origin&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>如果你使用<code>git clone</code>命令，克隆了一个远程仓库，这时候你想要推送自己的代码，那么， 你必须拥有你所克隆服务器的写入权限，并且在你之前没有人进行过推送，这条命名才能生效。</p>
+<p>把本地库的内容推送到远程，用<code>git push</code>命令，实际上是把当前分支<code>master</code>推送到远程。</p>
+<p>由于远程库是空的，我们第一次推送<code>master</code>分支时，加上了<code>-u</code>参数，Git不但会把本地的<code>master</code>分支内容推送的远程新的<code>master</code>分支，还会把本地的<code>master</code>分支和远程的<code>master</code>分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<p>推送成功后，可以立刻在GitHub页面中看到远程库的内容已经和本地一模一样：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927130408503.png" alt="image-20200927130408503"></p>
+<p>从现在起，只要本地作了提交，就可以通过命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>把本地<code>master</code>分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！</p>
+<h2 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h2><p>想要查看某一个远程仓库的更多信息，可以使用 <code>git remote show &lt;remote&gt;</code> 命令。 如果想以一个特定的仓库名运行这个命令，例如 <code>origin</code>，会得到像下面类似的信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: https://github.com/tiangoubot/learngit.git</span><br><span class="line">  Push  URL: https://github.com/tiangoubot/learngit.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branch:</span><br><span class="line">    master tracked</span><br><span class="line">  Local branch configured <span class="keyword">for</span> <span class="string">&#x27;git pull&#x27;</span>:</span><br><span class="line">    master merges with remote master</span><br><span class="line">  Local ref configured <span class="keyword">for</span> <span class="string">&#x27;git push&#x27;</span>:</span><br><span class="line">    master pushes to master (up to date)</span><br></pre></td></tr></table></figure>
+
+<p>这个命令列出了当你在特定的分支上执行 <code>git push</code> 会自动地推送到哪一个远程分支。 它也同样地列出了哪些远程分支不在你的本地（如果有会列出，这里没有），哪些远程分支已经从服务器上移除了（如果有会列出，这里没有）， 还有当你执行 <code>git pull</code> 时哪些本地分支可以与它跟踪的远程分支自动合并。</p>
+<h2 id="远程仓库的重命名与移除"><a href="#远程仓库的重命名与移除" class="headerlink" title="远程仓库的重命名与移除"></a>远程仓库的重命名与移除</h2><p>使用 <code>git remote rename</code> 可以修改一个远程仓库的简写名。 例如，想要将 <code>origin</code> 重命名为 <code>learngit</code>，可以用 <code>git remote rename</code> 这样做：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git remote rename origin learngit</span><br><span class="line">$ git remote  -v</span><br><span class="line">learngit        https://github.com/tiangoubot/learngit.git (fetch)</span><br><span class="line">learngit        https://github.com/tiangoubot/learngit.git (push)</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是这同样也会修改你所有远程跟踪的分支名字。 那些过去引用 <code>origin/master</code> 的现在会引用 <code>learngit/master</code>。</p>
+<p>使用 <code>git remote remove</code> 或 <code>git remote rm</code> 命令可以移除一个远程仓库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git remote remove learngit</span><br></pre></td></tr></table></figure>
+
+<p>一旦你使用这种方式删除了一个远程仓库，那么所有和这个远程仓库相关的远程跟踪分支以及配置信息也会一起被删除。</p>
+<h1 id="8、标签"><a href="#8、标签" class="headerlink" title="8、标签"></a>8、标签</h1><p>标签，顾名思义就是做标记，在git中，一般用与标记某个发布节点。</p>
+<p>git 支持两种标签：轻量标签（lightweight）与附注标签（annotated）。</p>
+<p><strong>轻量标签：</strong>很像一个不会改变的分支——它只是某个特定提交的引用，不会存储任何信息。</p>
+<p><strong>附注标签：</strong>是存储在 Git 数据库中的一个完整对象， 它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间， 此外还有一个标签信息，并且可以使用 GNU Privacy Guard （GPG）签名并验证。 </p>
+<p>通常会建议创建附注标签，这样你可以拥有以上所有信息。但是如果你只是想用一个临时的标签， 或者因为某些原因不想要保存这些信息，那么也可以用轻量标签。</p>
+<h2 id="列出标签"><a href="#列出标签" class="headerlink" title="列出标签"></a>列出标签</h2><p>使用<code>git tag</code>命令（可带上可选的参数<code>-l</code>或者<code>-list</code>）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会以字母顺序列出标签，但不是很重要</p>
+<p>如果对某个特定的版本号感兴趣，可以使用下面的方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -l <span class="string">&quot;v1.8.5*&quot;</span> <span class="comment"># 查看v1.8.5系列</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><p><strong>附注标签：</strong></p>
+<p>在 git 中创建附注标签十分简单。 最简单的方式是当你在运行 <code>tag</code> 命令时指定 <code>-a</code> 选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0 -m <span class="string">&#x27;test version 1.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>-m</code> 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，git 会启动编辑器要求你输入信息。</p>
+<p>通过使用 <code>git show</code> 命令可以看到标签信息和与之对应的提交信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git show -q v1.0 <span class="comment"># -q表示不显示差异输出</span></span><br><span class="line">tag v1.0</span><br><span class="line">Tagger: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sun Sep 27 14:21:53 2020 +0800</span><br><span class="line"></span><br><span class="line"><span class="built_in">test</span> version 1.0</span><br><span class="line"></span><br><span class="line">commit 6680bd40434821abf3e29045593629d4c9fddb15 (HEAD -&gt; master, tag: v1.0)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sun Sep 27 12:58:55 2020 +0800</span><br><span class="line"></span><br><span class="line">    modify google.txt add google play</span><br></pre></td></tr></table></figure>
+
+<p>输出显示了打标签者的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。</p>
+<p><strong>轻量标签：</strong></p>
+<p>轻量标签本质上是将提交校验和 存储到一个文件中——没有保存任何其他信息。 创建轻量标签，不需要使用 <code>-a</code>、<code>-s</code> 或 <code>-m</code> 选项，只需要提供标签名字：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag v1.0.1</span><br></pre></td></tr></table></figure>
+
+<p>这时，如果运行 <code>git show</code>，你不会看到额外的标签信息。 命令只会显示出提交信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git show -q v1.0.1</span><br><span class="line">commit 6680bd40434821abf3e29045593629d4c9fddb15 (HEAD -&gt; master, tag: v1.0.1, tag: v1.0)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sun Sep 27 12:58:55 2020 +0800</span><br><span class="line"></span><br><span class="line">    modify google.txt add google play</span><br></pre></td></tr></table></figure>
+
+<h2 id="后期打标签"><a href="#后期打标签" class="headerlink" title="后期打标签"></a>后期打标签</h2><p>git也可以对过去的提交打标签。假如提交历史是这样的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">6680bd4 (HEAD -&gt; master, tag: v1.0.1, tag: v1.0) modify google.txt add google play</span><br><span class="line">0b1cde0 readme.txt version 3.0</span><br><span class="line">4b45669 readme.txt version 2.0</span><br><span class="line">d3c72dd readme.txt version 1.0</span><br><span class="line">73d5592 modify google.txt and add file readme.txt</span><br><span class="line">6a1006a rename app.txt -&gt; application.txt</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>假设现在想在<code>readme.txt version 1.0</code>这次提交上打个标签，那么就需要在命令的末尾指定提交的校验和（或部分校验和）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0-release d3c72dd -m <span class="string">&#x27;后期打标签，释放1.0版本&#x27;</span></span><br><span class="line">$ git tag</span><br><span class="line">v1.0</span><br><span class="line">v1.0-release</span><br><span class="line">v1.0.1</span><br><span class="line"></span><br><span class="line">$ git show -q v1.0-release</span><br><span class="line">tag v1.0-release</span><br><span class="line">Tagger: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sun Sep 27 14:31:55 2020 +0800</span><br><span class="line"></span><br><span class="line">后期打标签，释放1.0版本</span><br><span class="line"></span><br><span class="line">commit d3c72dd5ba02000c359d3b7b524250f42d3fade5 (tag: v1.0-release)</span><br><span class="line">Author: hahaha &lt;orcale.io@gmail.com&gt;</span><br><span class="line">Date:   Sat Sep 26 16:56:55 2020 +0800</span><br><span class="line"></span><br><span class="line">    readme.txt version 1.0</span><br></pre></td></tr></table></figure>
+
+<p>可以看到你已经在那次提交上打上标签了。</p>
+<h2 id="共享（推送）标签"><a href="#共享（推送）标签" class="headerlink" title="共享（推送）标签"></a>共享（推送）标签</h2><p>默认情况下，<code>git push</code> 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上。 这个过程就像共享远程分支一样——你可以运行 <code>git push origin &lt;tagname&gt;</code>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在之前讲远程仓库时，我们在最后把远程仓库移除了，现在我们先添加上</span></span><br><span class="line">$ git remote add origin https://github.com/tiangoubot/learngit.git</span><br><span class="line"><span class="comment"># 共享（推送）标签到远程仓库</span></span><br><span class="line">$ git push origin v1.0-release</span><br><span class="line">Enumerating objects: 1, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (1/1), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (1/1), 201 bytes | 50.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 1 (delta 0), reused 0 (delta 0), pack-reused 0</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> * [new tag]         v1.0-release -&gt; v1.0-release</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927143930833.png" alt="image-20200927143930833"></p>
+<p>如果想要一次性推送很多标签，也可以使用带有 <code>--tags</code> 选项的 <code>git push</code> 命令。 这将会把所有不在远程仓库服务器上的标签全部传送到那里。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin --tags</span><br><span class="line">Enumerating objects: 1, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (1/1), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (1/1), 160 bytes | 160.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 1 (delta 0), reused 0 (delta 0), pack-reused 0</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> * [new tag]         v1.0 -&gt; v1.0</span><br><span class="line"> * [new tag]         v1.0.1 -&gt; v1.0.1</span><br></pre></td></tr></table></figure>
+
+<p>现在，当其他人从仓库中克隆或拉取，他们也能得到你的那些标签。</p>
+<h2 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h2><p>删除掉你本地仓库上的标签，可以使用命令 <code>git tag -d &lt;tagname&gt;</code>。 例如，可以使用以下命令删除一个轻量标签：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -d v1.0.1</span><br><span class="line">Deleted tag <span class="string">&#x27;v1.0.1&#x27;</span> (was 6680bd4)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>上述命令并不会从任何远程仓库中移除这个标签，你必须使用下面的方式来更新你的远程仓库。</p>
+<ul>
+<li><p>方式一：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin :refs/tags/v1.0.1</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> - [deleted]         v1.0.1</span><br></pre></td></tr></table></figure>
+
+<p>上面这种操作的含义是，将冒号前面的空值推送到远程标签名，从而高效地删除它。</p>
+</li>
+<li><p>方式二（更直观一点）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin --delete v1.0</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> - [deleted]         v1.0</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="检出标签"><a href="#检出标签" class="headerlink" title="检出标签"></a>检出标签</h2><p>我还没弄明白，先空着，以后搞清楚了再来更新！</p>
+<h1 id="9、别名（了解）"><a href="#9、别名（了解）" class="headerlink" title="9、别名（了解）"></a>9、别名（了解）</h1><p> git 旧版本并不会在你输入部分命令时自动补全你想要的命令，如果不想每次都输入完整的git命令，可以通过 <code>git config</code> 文件来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.co checkout</span><br><span class="line">$ git config --global alias.br branch</span><br><span class="line">$ git config --global alias.ci commit</span><br><span class="line">$ git config --global alias.st status</span><br></pre></td></tr></table></figure>
+
+<p>新版本的git有自动补全命令的功能，建议比较长的命令可以使用别名，比如查看提交历史的。</p>
+<p>更多的信息，请查看git官网</p>
+<h1 id="10、Git分支"><a href="#10、Git分支" class="headerlink" title="10、Git分支"></a>10、Git分支</h1><p>什么是Git分支？</p>
+<p>看看git官网是怎么说的，有人把 Git 的分支模型称为它的“必杀技特性”，也正因为这一特性，使得 Git 从众多版本控制系统中脱颖而出……吧啦吧啦说了一大堆，看得是一脸懵逼。</p>
+<p><strong>简单的说，分支就是火影忍者中的影分身之术，可以从本体分出好多个分身，本体可以看做是主干，分身可以看做为主干的分支，能够同时独立的工作，也可以在需要的时候合为一体。不知道火影忍者的，可以参考孙悟空，他也会分身。</strong></p>
+<p>这只是简单的打个比方，很多版本控制系统支持分支，唯独 git 的分支模型独领风骚，那么 git 是的分支是如何实现的？</p>
+<p>接下来会用图文并茂（文字也请认真看，让自己有个印象）的方式来帮你理解git分支以及它的强大之处。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200923094752490.png" alt="我要开始装逼了"></p>
+<p>git 保存数据，保存的不是文件的变化或者差异，而是一系列不同时刻的<strong>快照</strong>。在进行提交操作时，git 会保存一个提交对象（commit object）。知道了 git 保存数据的方式，我们可以很自然的想到——该提交对象会包含一个指向暂存内容快照的指针。 但不仅仅是这样，该提交对象还包含了作者的姓名和邮箱、提交时输入的信息以及指向它的父对象的指针。 首次提交产生的提交对象没有父对象，普通提交操作产生的提交对象有一个父对象， 而由多个分支合并产生的提交对象有多个父对象，</p>
+<p>为了更加形象地说明，我们假设现在有一个工作目录，里面包含了三个将要被暂存和提交的文件。 暂存操作会为每一个文件计算校验和（使用SHA-1 哈希算法），然后会把当前版本的文件快照保存到 git 仓库中 （git 使用 <em>blob</em> 对象来保存它们），最终将校验和加入到暂存区域等待提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add README test.rb LICENSE</span><br><span class="line">$ git commit -m <span class="string">&#x27;The initial commit of my project&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>当使用 <code>git commit</code> 进行提交操作时，git 会先计算每一个子目录（本例中只有项目根目录）的校验和， 然后在 git 仓库中这些校验和保存为树对象。随后，git 便会创建一个提交对象， 它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。 如此一来，git 就可以在需要的时候重现此次保存的快照。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200918042109655.png" alt="这啥玩意儿？"></p>
+<p>别方，现在我们来看看首次提交对象及其树结构：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200920221304154.png" alt="image-20200920221304154"></p>
+<p>现在，git 仓库中有五个对象：三个 <em>blob</em> 对象（保存着文件快照）、一个 <strong>树</strong> 对象 （记录着目录结构和 blob 对象索引）以及一个 <strong>提交</strong> 对象（包含着指向树对象的指针和所有提交信息）。</p>
+<p><strong>注：</strong>这里为什么是三个<em>blob</em>对象，是因为前面我们用的<code>git add README test.rb LICENSE</code>命令暂存了这三个文件，随后就提交了，所以产生了三个blob对象。</p>
+<p>做些修改后再次提交，那么这次产生的提交对象会包含一个指向上次提交对象（父对象）的指针。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200920223441356.png" alt="image-20200920223441356"></p>
+<p>git 的分支，其实本质上仅仅是指向提交对象的可变指针。 git 的默认分支名字是 <code>master</code>。 在多次提交操作之后，你其实已经有一个指向最后那个提交对象的 <code>master</code> 分支。 <code>master</code> 分支会在每次提交时自动向前移动。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200920232041377.png" alt="image-20200920232041377"></p>
+<p><strong>注：git 的 <code>master</code> 分支并不是一个特殊分支。 它就跟其它分支完全没有区别。 之所以几乎每一个仓库都有 master 分支，是因为 <code>git init</code> 命令默认创建它，并且大多数人都懒得去改动它</strong>。</p>
+<p><strong>今年，也就是2020年10月1日起，所有在GitHub上新建的仓库默认名字都将改为<code>main</code>而不是<code>master</code>。此前的所有仓库不受影响</strong></p>
+<h2 id="分支创建"><a href="#分支创建" class="headerlink" title="分支创建"></a>分支创建</h2><p>git 创建一个分支，只是为你创建了一个可以移动的新的指针，比如，创建一个testing分支，你需要使用<code>git branch</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch testing</span><br></pre></td></tr></table></figure>
+
+<p>通常我们会在创建一个新分支后立即切换过去，这可以用 <code>git checkout -b &lt;newbranchname&gt;</code> 一条命令搞定。</p>
+<p>这会在当前所在的提交对象上创建一个指针。两个指向相同提交历史的分支：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200920233111213.png" alt="image-20200920233111213"></p>
+<p>那么，git 又是怎么知道当前在哪一个分支上的？ 也很简单，它有一个名为 <code>HEAD</code> 的特殊指针。 请注意它和许多其它版本控制系统（如 Subversion 或 CVS）里的 <code>HEAD</code> 概念完全不同。 在 git 中，它是一个指针，指向当前所在的本地分支，可以将 <code>HEAD</code> 想象为当前分支的别名。 在本例中，你仍然在 <code>master</code> 分支上。 因为 <code>git branch</code> 命令仅仅 <strong>创建</strong> 一个新分支，并不会自动切换到新分支中去。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921001503092.png" alt="image-20200921001503092"></p>
+<p>你可以简单地使用 <code>git log</code> 命令查看各个分支当前所指的对象。 提供这一功能的参数是 <code>--decorate</code>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --decorate</span><br><span class="line">f30ab (HEAD -&gt; master, testing) add feature <span class="comment">#32 - ability to add new formats to the central interface</span></span><br><span class="line">34ac2 Fixed bug <span class="comment">#1328 - stack overflow under certain conditions</span></span><br><span class="line">98ca9 The initial commit of my project</span><br></pre></td></tr></table></figure>
+
+<p>当前 <code>master</code> 和 <code>testing</code> 分支均指向校验和以 <code>f30ab</code> 开头的提交对象。</p>
+<h2 id="分支切换"><a href="#分支切换" class="headerlink" title="分支切换"></a>分支切换</h2><p>要切换到一个已存在的分支，使用 <code>git checkout</code> 命令。 我们现在切换到新创建的 <code>testing</code> 分支去：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout testing</span><br></pre></td></tr></table></figure>
+
+<p>这样 <code>HEAD</code> 就指向 <code>testing</code> 分支了。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921003131064.png" alt="image-20200921003131064"></p>
+<p>这样的实现方式有什么好处？当再次进行提交时：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921003330375.png" alt="image-20200921003330375"></p>
+<p><code>testing</code>分支（<code>HEAD</code>所在分支）随着提交操作自动向前移动，但是<code>master</code>分支却没有移动，他仍然指向运行<code>git checkout</code>时所指的对象。再切回<code>master</code>分支看看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921003745986.png" alt="image-20200921003745986"></p>
+<p>可以看到<code>HEAD</code>指回了<code>master</code>分支。这条命令做了两件事，一是使<code>HEAD</code>指回<code>master</code>分支，二是将工作目录恢复成<code>master</code>分支所指向的快照内容。也就是说，现在做修改的话，项目将始于一个较旧的版本。 本质上来讲，这就是忽略 <code>testing</code> 分支所做的修改，以便于向另一个方向进行开发。</p>
+<p>此时<code>HEAD</code>指向<code>master</code>分支，如果此时进行修改并提交，而之前在<code>testing</code>分支上也进行了修改并提交，两次改动针对的是不同分支，此时提交历史就产生了分叉：你可以在不同的分支来回切换进行工作，在有需要的时候将他们合并起来，这些工作，需要的命令只有<code>branch</code>、<code>checkout</code>、<code>commit</code>。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921010301499.png" alt="image-20200921010301499"></p>
+<p>你可以简单地使用 <code>git log</code> 命令查看分叉历史。 运行 <code>git log --oneline --decorate --graph --all</code> ，它会输出你的提交历史、各个分支的指向以及项目的分支分叉情况。</p>
+<p>由于 git 的分支实质上仅是包含所指对象校验和（长度为 40 的 SHA-1 值字符串）的文件，所以它的创建和销毁都异常高效。 创建一个新分支就相当于往一个文件中写入 41 个字节（40 个字符和 1 个换行符），如此的简单能不快吗？</p>
+<p>这与过去大多数版本控制系统形成了鲜明的对比，它们在创建分支时，将所有的项目文件都复制一遍，并保存到一个特定的目录。 完成这样繁琐的过程通常需要好几秒钟，有时甚至需要好几分钟。所需时间的长短，完全取决于项目的规模。 而在 git 中，任何规模的项目都能在瞬间创建新分支。 同时，由于每次提交都会记录父对象，所以寻找恰当的合并基础（即共同祖先）也是同样的简单和高效。 这些高效的特性使得 Git 鼓励开发人员频繁地创建和使用分支。</p>
+<h2 id="分支的合并"><a href="#分支的合并" class="headerlink" title="分支的合并"></a>分支的合并</h2><p>在实际工作中，可能会有这样的经历：</p>
+<ol>
+<li>开发某个网站。</li>
+<li>为实现某个新的用户需求，创建一个分支。</li>
+<li>在这个分支上开展工作。</li>
+</ol>
+<p>这时，出现一个很严重的bug需要紧急修补。那么这时候的流程应该是这样的：</p>
+<ol>
+<li>切换到你的线上分支（production branch）。</li>
+<li>为这个紧急任务新建一个分支，并在其中修复它。</li>
+<li>在测试通过之后，切换回线上分支，然后合并这个修补分支，最后将改动推送到线上分支。</li>
+<li>切换回你最初工作的分支上，继续工作。</li>
+</ol>
+<p>假设在<code>master</code>分支上已经有了一些提交：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921093629463.png" alt="image-20200921093629463"></p>
+<p>这个时候，领导要你解决公司的bug追踪系统上的#53号问题，这个时候就需要新建一个分支并同时切换到那个分支上去，你可以使用带有 <code>-b</code> 参数的 <code>git checkout</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里我们就使用我们的learngit本地仓库 进行演示</span></span><br><span class="line"><span class="comment"># 先确认工作区是干净的，然后新建分支</span></span><br><span class="line">$ git checkout -b iss53</span><br><span class="line">Switched to a new branch <span class="string">&#x27;iss53&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>它是这两条命令的简写：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch iss53</span><br><span class="line">$ git checkout iss53</span><br></pre></td></tr></table></figure>
+
+<p>这时已经创建了一个新的分支iss53</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921094054060.png" alt="image-20200921094054060"></p>
+<p>你继续在 <code>iss53</code>分支上工作，并且做了一些提交。 在此过程中，<code>iss53</code> 分支在不断的向前推进，因为你已经检出到该分支 （也就是说，你的 <code>HEAD</code> 指针指向了 <code>iss53</code> 分支）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改readme.txt文件，然后提交</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;modify readme.txt add content study git branch&#x27;</span></span><br><span class="line">[iss53 0526e3d] modify readme.txt add content study git branch</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>分支随着工作的进展向前推进：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921094614566.png" alt="image-20200921094614566"></p>
+<p>这时，<code>master</code>分支上又有一个紧急问题需要你来解决，那么这个时候，你可以直接切换回<code>master</code>分支解决问题即可，这里有一个前提：<strong>在你切换分支之前，保持好一个干净的状态，也就是确保你的工作目录和暂存区里没有未被提交的修改，避免和<code>master</code>分支产生冲突导致git不让你切换分支。</strong>切换至<code>master</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>切换回<code>master</code>分支之后，git会重置你的工作目录，使其恢复到你在这个分支最后一次提交的状态，当然你不用担心之前在<code>iss53</code>分支上的修改会消失，因为不同分支不会相互影响。接下来，要修复<code>master</code>分支上的问题，只需要再建立一个分支，在该分支上解决问题即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b hotfix</span><br><span class="line">Switched to a new branch <span class="string">&#x27;hotfix&#x27;</span></span><br><span class="line"><span class="comment"># 修改 google.txt，并提交</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;modify google.txt add content google voice&#x27;</span></span><br><span class="line">[hotfix d6c79ae] modify google.txt add content google voice</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921100559184.png" alt="image-20200921100559184"></p>
+<p>可以在<code>hotfix</code>分支上进行测试，确保自己的修改无误，然后将<code>hotfix</code>分支合并到<code>master</code>分支部署到线上。合并分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ git merge hotfix</span><br><span class="line">Updating 6680bd4..d6c79ae</span><br><span class="line">Fast-forward</span><br><span class="line"> google.txt | 3 ++-</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>上述的合并信息中有 “快进（Fast-forward）”这个词。由于你想要合并的分支 <code>hotfix</code> 所指向的提交 <code>C4</code> 是你所在的提交 <code>C2</code> 的直接后继， 因此 Git 会直接将指针向前移动。换句话说，当你试图合并两个分支时， 如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候， 只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”。</p>
+<p><code>master</code> 被快进到 <code>hotfix</code>：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921101641681.png" alt="image-20200921101641681"></p>
+<p>合并完成之后，<code>hotfix</code>分支就可以删除了，已经不需要它了（ <code>master</code> 分支和它已经指向了同一个位置），可以使用带 <code>-d</code> 选项的 <code>git branch</code> 命令来删除分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果未合并，但是想要强制删除分支，-d换成-D即可</span></span><br><span class="line">$ git branch -d hotfix</span><br><span class="line">Deleted branch hotfix (was d6c79ae).</span><br></pre></td></tr></table></figure>
+
+<p>现在可以回到<code>iss53</code>分支继续之前的工作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout iss53</span><br><span class="line">Switched to branch <span class="string">&#x27;iss53&#x27;</span></span><br><span class="line"><span class="comment"># 再次修改readme.txt 文件，并提交</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;modify readme.txt add content merge branch&#x27;</span></span><br><span class="line">[iss53 4418bd6] modify readme.txt add content merge branch</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921113511692.png" alt="image-20200921113511692"></p>
+<p>假设你已经修正了 #53 问题，并且打算将你的工作合并入 <code>master</code> 分支。 这和之前合并 <code>hotfix</code> 分支所做的工作差不多。 你只需要检出到你想合并入的分支，然后运行 <code>git merge</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">$ git merge iss53 <span class="comment"># 如果按照我的步骤来，肯定会出现下面的窗口</span></span><br><span class="line">Merge made by the <span class="string">&#x27;recursive&#x27;</span> strategy.</span><br><span class="line"> readme.txt | 3 ++-</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927155746985.png" alt="image-20200927155746985"></p>
+<p>这和之前合并 <code>hotfix</code> 分支的时候看起来有一点不一样。 在这种情况下，你的开发历史从一个更早的地方开始分叉开来（diverged）。 因为，<code>master</code> 分支所在提交并不是 <code>iss53</code> 分支所在提交的直接祖先，git 不得不做一些额外的工作。 出现这种情况的时候，git 会使用两个分支的末端所指的快照（<code>C4</code> 和 <code>C5</code>）以及这两个分支的公共祖先（<code>C2</code>），做一个简单的三方合并。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921153724325.png" alt="image-20200921153724325"></p>
+<p>和之前将分支指针向前推进所不同的是，git 将此次三方合并的结果做了一个新的快照并且自动创建一个新的提交指向它。 这个被称作一次合并提交，它的特别之处在于他有不止一个父提交。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200921154157859.png" alt="image-20200921154157859"></p>
+<p>既然你的修改已经合并进来了，就不再需要 <code>iss53</code> 分支了。 可以在任务追踪系统中关闭此项任务，并删除这个分支。这里暂时不删除。</p>
+<h2 id="合并分支遇到冲突"><a href="#合并分支遇到冲突" class="headerlink" title="合并分支遇到冲突"></a>合并分支遇到冲突</h2><p>现在我们再次创建一个分支，对<code>application.txt</code>文件进行修改：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b hotfix</span><br><span class="line">Switched to a new branch <span class="string">&#x27;hotfix&#x27;</span></span><br><span class="line"><span class="comment"># 对application.txt文件进行修改并提交</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;modify application.txt add android app&#x27;</span></span><br><span class="line">[hotfix 92f4c86] modify application.txt add android app</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br><span class="line"><span class="comment"># 切换回master分支，合并hotfix分支</span></span><br><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ git merge hotfix</span><br><span class="line">Updating 110aa9d..92f4c86</span><br><span class="line">Fast-forward</span><br><span class="line"> application.txt | 3 ++-</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>切换到<code>iss53</code>分支，同样对<code>application.txt</code>文件进行修改：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout iss53</span><br><span class="line">Switched to branch <span class="string">&#x27;iss53&#x27;</span></span><br><span class="line"><span class="comment"># 对application.txt文件进行修改并提交</span></span><br><span class="line">$ git commit -a -m <span class="string">&#x27;modify application.txt add iphone&#x27;</span></span><br><span class="line">[iss53 cb202c2] modify application.txt add iphone</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候把<code>iss53</code>合并到<code>master</code>分支，就会产生合并冲突：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git merge iss53</span><br><span class="line">Auto-merging application.txt</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> application.txt</span><br><span class="line">Recorded preimage <span class="keyword">for</span> <span class="string">&#x27;application.txt&#x27;</span></span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br></pre></td></tr></table></figure>
+
+<p>此时 git 做了合并，但是没有自动地创建一个新的合并提交。 git 会暂停下来，等待你去解决合并产生的冲突。 你可以在合并冲突后的任意时刻使用 <code>git status</code> 命令来查看那些因包含合并冲突而处于未合并（unmerged）状态的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run <span class="string">&quot;git commit&quot;</span>)</span><br><span class="line">  (use <span class="string">&quot;git merge --abort&quot;</span> to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to mark resolution)</span><br><span class="line">        both modified:   application.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>任何因包含合并冲突而有待解决的文件，都会以未合并状态标识出来。 git 会在有冲突的文件中加入标准的冲突解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。 出现冲突的文件会包含一些特殊区段，看起来像下面这个样子（打开<code>application.txt</code>文件）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">application</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">android app</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">iphone</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53</span><br></pre></td></tr></table></figure>
+
+<p>这表示 <code>HEAD</code> 所指示的版本（也就是你的 <code>master</code> 分支，因为你在运行 merge 命令的时候已经切换到了这个分支）在这个区段的上半部分（<code>=======</code> 的上半部分），而 <code>iss53</code> 分支所指示的版本在 <code>=======</code> 的下半部分。 为了解决冲突，你必须选择使用由 <code>=======</code> 分割的两部分中的一个，或者你也可以自行合并这些内容。 例如，你可以通过把这段内容修改成下面的样子来解决冲突：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">application</span><br><span class="line">android app</span><br><span class="line">iphone</span><br></pre></td></tr></table></figure>
+
+<p>这里解决冲突的方案是保留全部内容（当然实际工作中，要看自己的取舍，这里只是举个例子），并且 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> , <code>=======</code> , 和 <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 这些行被完全删除了。 在解决了所有文件里的冲突之后，对每个文件使用 <code>git add</code> 命令来将其标记为冲突已解决。 一旦暂存这些原本有冲突的文件，git 就会将它们标记为冲突已解决。</p>
+<p>如果你想使用图形化工具来解决冲突，你可以运行 <code>git mergetool</code>，该命令会为你启动一个合适的可视化合并工具（默认的很丑，可以到网上找一个），并带领你一步一步解决这些冲突。</p>
+<p>冲突解决之后，git会暂存那些文件以表明冲突已解决： 你可以再次运行 <code>git status</code> 来确认所有的合并冲突都已被解决：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">All conflicts fixed but you are still merging.</span><br><span class="line">  (use <span class="string">&quot;git commit&quot;</span> to conclude merge)</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">        modified:   application.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果觉得没有问题了，并且所有有冲突的文件都已经暂存了，这时可以输入 <code>git commit</code> 来完成合并提交。 默认情况下提交信息看起来像下面这个样子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 没有加 -m 的情况下</span></span><br><span class="line">Merge branch <span class="string">&#x27;iss53&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Conflicts:</span></span><br><span class="line"><span class="comment">#       application.txt</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It looks like you may be committing a merge.</span></span><br><span class="line"><span class="comment"># If this is not correct, please remove the file</span></span><br><span class="line"><span class="comment">#       .git/MERGE_HEAD</span></span><br><span class="line"><span class="comment"># and try again.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Please enter the commit message for your changes. Lines starting</span></span><br><span class="line"><span class="comment"># with &#x27;#&#x27; will be ignored, and an empty message aborts the commit.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># All conflicts fixed but you are still merging.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#       modified:   application.txt</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>如果觉得上述的信息不够充分，不能完全体现分支合并的过程，你可以修改上述信息， 添加一些细节给未来检视这个合并的读者一些帮助，告诉他们是如何解决合并冲突的，以及理由是什么</p>
+<h2 id="Git分支管理"><a href="#Git分支管理" class="headerlink" title="Git分支管理"></a>Git分支管理</h2><p>之前已经创建、合并、删除了一些分支，现在来看看一些常用的分支管理工具。</p>
+<p><code>git branch</code> 命令不只是可以创建与删除分支。 如果不加任何参数运行它，会得到当前所有分支的一个列表：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">  hotfix</span><br><span class="line">  iss53</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p> <code>master</code> 分支前的 <code>*</code> 字符：它代表现在检出的那一个分支（也就是说，当前 <code>HEAD</code> 指针所指向的分支）。 这意味着如果在这时候提交，<code>master</code> 分支将会随着新的工作向前移动。 如果需要查看每一个分支的最后一次提交，可以运行 <code>git branch -v</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch -v</span><br><span class="line">  hotfix 92f4c86 modify application.txt add android app</span><br><span class="line">  iss53  cb202c2 modify application.txt add iphone</span><br><span class="line">* master 27bc1f2 Merge branch <span class="string">&#x27;iss53&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>--merged</code> 与 <code>--no-merged</code> 这两个有用的选项可以过滤这个列表中已经合并或尚未合并到当前分支的分支。 如果要查看哪些分支已经合并到当前分支，可以运行 <code>git branch --merged</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch --merged</span><br><span class="line">  hotfix</span><br><span class="line">  iss53</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>因为之前已经合并了 <code>iss53</code> 分支和<code>hotfix</code>分支，所以现在看到它们在列表中。 在这个列表中分支名字前没有 <code>*</code> 号的分支通常可以使用 <code>git branch -d</code> 删除掉；你已经将它们的工作整合到了另一个分支，所以并不会失去任何东西。</p>
+<p>如果存在未合并的分支，而你又想删除它，这个时候可以使用<code>git branch -D &lt;branchname&gt;</code>命令强制删除。</p>
+<h2 id="Git远程分支"><a href="#Git远程分支" class="headerlink" title="Git远程分支"></a>Git远程分支</h2><p>先来了解两个名词：</p>
+<ul>
+<li>远程引用</li>
+<li>远程跟踪分支</li>
+</ul>
+<h3 id="远程引用："><a href="#远程引用：" class="headerlink" title="远程引用："></a>远程引用：</h3><p>远程引用是对远程仓库的引用（指针），包括分支、标签等等。可以通过 <code>git ls-remote &lt;remote&gt;</code> 来显式地获得远程引用的完整列表， 或者通过 <code>git remote show &lt;remote&gt;</code> 获得远程分支的更多信息。 然而，更常见的做法是利用远程跟踪分支。</p>
+<h3 id="远程跟踪分支："><a href="#远程跟踪分支：" class="headerlink" title="远程跟踪分支："></a>远程跟踪分支：</h3><p>远程跟踪分支是远程分支状态的引用。它们是你无法移动的本地引用。一旦你进行了网络通信， Git 就会为你移动它们以精确反映远程仓库的状态。请将它们看做书签， 这样可以提醒你该分支在远程仓库中的位置就是你最后一次连接到它们的位置。</p>
+<p>远程跟踪分支 <code>&lt;remote&gt;/&lt;branch&gt;</code> 的形式命名。例如，如果你想要看你最后一次与远程仓库 <code>origin</code> 通信时 <code>master</code> 分支的状态，你可以查看 <code>origin/master</code> 分支。 你与同事合作解决一个问题并且他们推送了一个 <code>iss53</code> 分支，你可能有自己的本地 <code>iss53</code> 分支， 然而在服务器上的分支会以 <code>origin/iss53</code> 来表示。<strong>简单来说就是本地分支没有仓库名，远程分支是带有仓库名的。</strong></p>
+<p>我们再来看一个例子，假设你的网络里有一个在 <code>git.ourcompany.com</code> 的 git 服务器。 如果你从这里克隆，git 的 <code>clone</code> 命令会为你自动将其命名为 <code>origin</code>，拉取它的所有数据， 创建一个指向它的 <code>master</code> 分支的指针，并且在本地将其命名为 <code>origin/master</code>。 git 也会给你一个与 origin 的 <code>master</code> 分支在指向同一个地方的本地 <code>master</code> 分支，这样你就有工作的基础。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200922104438392.png" alt="image-20200922104438392"></p>
+<p>如果你在本地的 <code>master</code> 分支做了一些工作，在同一段时间内有其他人推送提交到 <code>git.ourcompany.com</code> 并且更新了它的 <code>master</code> 分支，这就是说你们的提交历史已走向不同的方向。 即便这样，只要你保持不与 <code>origin</code> 服务器连接（并拉取数据），你的 <code>origin/master</code> 指针就不会移动。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200922105108905.png" alt="image-20200922105108905"></p>
+<p>如果要与给定的远程仓库同步数据，运行 <code>git fetch &lt;remote&gt;</code> 命令（在本例中为 <code>git fetch origin</code>）。 这个命令查找 “origin” 是哪一个服务器（在本例中，它是 <code>git.ourcompany.com</code>）， 从中抓取本地没有的数据，并且更新本地数据库，移动 <code>origin/master</code> 指针到更新之后的位置。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200922105220881.png" alt="image-20200922105220881"></p>
+<p> 为了演示有多个远程仓库与远程分支的情况，假定你有另一个内部 git 服务器，仅服务于你的某个敏捷开发团队。 这个服务器位于 <code>git.team1.ourcompany.com</code>。 你可以运行 <code>git remote add</code> 命令添加一个新的远程仓库引用到当前的项目。 将这个远程仓库命名为 <code>teamone</code>，作为完整 URL 的缩写。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200922105617419.png" alt="image-20200922105617419"></p>
+<p>现在，可以运行 <code>git fetch teamone</code> 来抓取远程仓库 <code>teamone</code> 有而本地没有的数据。 因为那台服务器上现有的数据是 <code>origin</code> 服务器上的一个子集， 所以 Git 并不会抓取数据而是会设置远程跟踪分支 <code>teamone/master</code> 指向 <code>teamone</code> 的 <code>master</code> 分支。</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200922105852517.png" alt="image-20200922105852517"></p>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><p>在推送本地分支到远程仓库前，我们先把远程仓库克隆一份到本地备用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/tiangoubot/learngit.git learngit2</span><br></pre></td></tr></table></figure>
+
+<p>把本地分支推送到远程仓库，可以使用<code>git push &lt;remote&gt; &lt;branch&gt;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin iss53</span><br><span class="line">Enumerating objects: 12, <span class="keyword">done</span>.</span><br><span class="line">Counting objects: 100% (12/12), <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (8/8), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (9/9), 851 bytes | 283.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 9 (delta 5), reused 0 (delta 0), pack-reused 0</span><br><span class="line">remote: Resolving deltas: 100% (5/5), completed with 2 <span class="built_in">local</span> objects.</span><br><span class="line">remote:</span><br><span class="line">remote: Create a pull request <span class="keyword">for</span> <span class="string">&#x27;iss53&#x27;</span> on GitHub by visiting:</span><br><span class="line">remote:      https://github.com/tiangoubot/learngit/pull/new/iss53</span><br><span class="line">remote:</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> * [new branch]      iss53 -&gt; iss53</span><br></pre></td></tr></table></figure>
+
+<p>这里有些工作被简化了。 git 自动将 <code>iss53</code> 分支名字展开为 <code>refs/heads/iss53:refs/heads/iss53</code>， 那意味着，“推送本地的 <code>iss53</code> 分支来更新远程仓库上的 <code>iss53</code> 分支。” 你也可以运行 <code>git push origin iss53:iss53</code>， 它会做同样的事——也就是说“推送本地的 <code>iss53</code> 分支，将其作为远程仓库的 <code>iss53</code> 分支” 可以通过这种格式来推送本地分支到一个命名不相同的远程分支。 如果并不想让远程仓库上的分支叫做 <code>iss53</code>，可以运行 <code>git push origin iss53:devTest</code> 来将本地的 <code>iss53</code> 分支推送到远程仓库上的 <code>devTest</code> 分支。</p>
+<p>下一次其他协作者从服务器上抓取数据时，他们会在本地生成一个远程分支 <code>origin/iss53</code>，指向服务器的 <code>iss53</code> 分支的引用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 刚才我们把iss53分支推送到远程仓库了，现在，我们先进入刚才克隆下来备份的仓库，在根目录下打开git bash，然后执行</span></span><br><span class="line">$ git fetch origin</span><br><span class="line">remote: Enumerating objects: 27, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (27/27), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (9/9), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 23 (delta 9), reused 23 (delta 9), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (23/23), 2.12 KiB | 1024 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">From https://github.com/tiangoubot/learngit</span><br><span class="line"> * [new branch]      iss53      -&gt; origin/iss53</span><br></pre></td></tr></table></figure>
+
+<p>要特别注意的一点是当抓取到新的远程跟踪分支时，本地不会自动生成一份可编辑的副本（拷贝）。 换一句话说，这种情况下，不会有一个新的 <code>iss53</code> 分支——只有一个不可以修改的 <code>origin/iss53</code> 指针。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch <span class="comment"># 可以看到并没有iss53分支</span></span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>你可以运行 <code>git merge origin/iss53</code> 将这些工作合并到当前所在的分支。 如果想要在自己的 <code>iss53</code> 分支上工作，可以将其建立在远程跟踪分支之上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b iss53 origin/iss53</span><br><span class="line">Switched to a new branch <span class="string">&#x27;iss53&#x27;</span></span><br><span class="line">Branch <span class="string">&#x27;iss53&#x27;</span> <span class="built_in">set</span> up to track remote branch <span class="string">&#x27;iss53&#x27;</span> from <span class="string">&#x27;origin&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>这会给你一个用于工作的本地分支，并且起点位于 <code>origin/iss53</code>。</p>
+<h3 id="跟踪分支"><a href="#跟踪分支" class="headerlink" title="跟踪分支"></a>跟踪分支</h3><p>从一个远程跟踪分支检出一个本地分支会自动创建“跟踪分支”（它跟踪的分支叫做“上游分支（例如： <code>origin/iss53</code>）”）。 跟踪分支是与远程分支有直接关系的本地分支。 如果在一个跟踪分支上输入 <code>git pull</code>，Git 能自动地识别去哪个服务器上抓取、合并到哪个分支。</p>
+<p>当克隆一个仓库时，它通常会自动地创建一个跟踪 <code>origin/master</code> 的 <code>master</code> 分支。 然而，如果你愿意的话可以设置其他的跟踪分支，或是一个在其他远程仓库上的跟踪分支，又或者不跟踪 <code>origin/master</code> 分支。 最简单的实例就是像之前看到的那样，运行 <code>git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt;</code>。 这是一个十分常用的操作所以 git 提供了 <code>--track</code> 快捷方式：</p>
+<p>先在GitHub上创建一个新的分支：</p>
+<p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927181822767.png" alt="image-20200927181822767"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git fetch origin <span class="comment"># 从远程仓库拉取数据</span></span><br><span class="line">From https://github.com/tiangoubot/learngit</span><br><span class="line"> * [new branch]      serverfix  -&gt; origin/serverfix</span><br><span class="line"><span class="comment"># 设置跟踪分支</span></span><br><span class="line">$ git checkout --track origin/serverfix</span><br><span class="line">Switched to a new branch <span class="string">&#x27;serverfix&#x27;</span></span><br><span class="line">Branch <span class="string">&#x27;serverfix&#x27;</span> <span class="built_in">set</span> up to track remote branch <span class="string">&#x27;serverfix&#x27;</span> from <span class="string">&#x27;origin&#x27;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>由于这个操作太常用了，该捷径本身还有一个捷径。 如果你尝试检出的分支 (a) 不存在且 (b) 刚好只有一个名字与之匹配的远程分支，那么 git 就会为你创建一个跟踪分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout serverfix</span><br><span class="line">Branch serverfix <span class="built_in">set</span> up to track remote branch serverfix from origin.</span><br><span class="line">Switched to a new branch <span class="string">&#x27;serverfix&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想要将本地分支与远程分支设置为不同的名字，你可以轻松地使用上一个命令增加一个不同名字的本地分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b sf origin/serverfix</span><br><span class="line">Branch sf <span class="built_in">set</span> up to track remote branch serverfix from origin.</span><br><span class="line">Switched to a new branch <span class="string">&#x27;sf&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时，本地分支 <code>sf</code> 会自动从 <code>origin/serverfix</code> 拉取。</p>
+<p>设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支， 你可以在任意时间使用 <code>-u</code> 或 <code>--set-upstream-to</code> 选项运行 <code>git branch</code> 来显式地设置。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch -u origin/serverfix</span><br><span class="line">Branch serverfix <span class="built_in">set</span> up to track remote branch serverfix from origin.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上游快捷方式<br>当设置好跟踪分支后，可以通过简写 <code>@&#123;upstream&#125;</code> 或 <code>@&#123;u&#125;</code> 来引用它的上游分支。 所以在 <code>master</code> 分支时并且它正在跟踪 <code>origin/master</code> 时，可以使用 <code>git merge @&#123;u&#125;</code> 命令来取代 <code>git merge origin/master</code>。</p>
+</blockquote>
+<p>如果想要查看设置的所有跟踪分支，可以使用 <code>git branch</code> 的 <code>-vv</code> 选项。 这会将所有的本地分支列出来并且包含更多的信息，如每一个分支正在跟踪哪个远程分支与本地分支是否是领先、落后或是都有。</p>
+<p>假如你看到了如下信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch -vv</span><br><span class="line">  iss53     7e424c3 [origin/iss53: ahead 2] forgot the brackets</span><br><span class="line">  master    1ae2a45 [origin/master] deploying index fix</span><br><span class="line">* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should <span class="keyword">do</span> it</span><br><span class="line">  testing   5ea463a trying something new</span><br></pre></td></tr></table></figure>
+
+<p>这里可以看到 <code>iss53</code> 分支正在跟踪 <code>origin/iss53</code> 并且 “ahead” 是 2，意味着本地有两个提交还没有推送到服务器上。 也能看到 <code>master</code> 分支正在跟踪 <code>origin/master</code> 分支并且是最新的。 接下来可以看到 <code>serverfix</code> 分支正在跟踪 <code>teamone</code> 服务器上的 <code>server-fix-good</code> 分支并且领先 3 落后 1， 意味着服务器上有一次提交还没有合并入本地，同时本地有三次提交还没有推送。 最后看到 <code>testing</code> 分支并没有跟踪任何远程分支。</p>
+<p>需要重点注意的一点是这些数字的值来自于你从每个服务器上最后一次抓取的数据。 这个命令并没有连接服务器，它只会告诉你关于本地缓存的服务器数据。 如果想要统计最新的领先与落后数字，需要在运行此命令前抓取所有的远程仓库。 可以像这样做：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git fetch --all; git branch -vv</span><br></pre></td></tr></table></figure>
+
+<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><p>当 <code>git fetch</code> 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并。 然而，有一个命令叫作 <code>git pull</code> 在大多数情况下它的含义是一个 <code>git fetch</code> 紧接着一个 <code>git merge</code> 命令。 如果有一个设置好的跟踪分支，不管它是显式地设置还是通过 <code>clone</code> 或 <code>checkout</code> 命令为你创建的，<code>git pull</code> 都会查找当前分支所跟踪的服务器与分支， 从服务器上抓取数据然后尝试合并入那个跟踪分支。</p>
+<p> <code>git pull</code> 命令会将本地仓库代码更新至远程仓库中最新的版本，简单粗暴。而 <code>fetch</code> 命令只是将本地仓库没有而远程仓库有的代码拉取到本地，你需要使用 <code>merge</code> 命令进行合并，如果本地代码与远程仓库的代码有冲突，你需要解决冲突之后才能进行合并，这样可以避免一些莫名其妙的问题，所以<strong>推荐使用<code>fetch</code> 与 <code>merge</code> 命令会更好一些</strong>。</p>
+<h3 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h3><p>假如你想要删除远程分支，可以运行带有 <code>--delete</code> 选项的 <code>git push</code> 命令来删除一个远程分支。 如果想要从服务器上删除 <code>serverfix</code> 分支，运行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin --delete serverfix</span><br><span class="line">To https://github.com/tiangoubot/learngit.git</span><br><span class="line"> - [deleted]         serverfix</span><br></pre></td></tr></table></figure>
+
+<p>基本上这个命令做的只是从服务器上移除这个指针。 git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的。</p>
+<p>如果误删了远程分支，可以按照以下步骤恢复：</p>
+<ol>
+<li><p>查看reflog，找到最后一次commitid</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog --date=iso</span><br></pre></td></tr></table></figure>
+
+<p><code>reflog</code>是<strong>reference log</strong>的意思，也就是引用log，记录HEAD在各个分支上的移动轨迹。选项 <code>--date=iso</code>，表示以标准时间格式展示。这里你肯定会问，为什么不用git log？git log是用来记录当前分支的commit log，分支都删除了，找不到commit log了。</p>
+<p>找到目标分支最后一次的commitid，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog --date=iso</span><br><span class="line">5ddc9cb (HEAD -&gt; testing) HEAD@&#123;2020-09-22 11:27:29 +0800&#125;: checkout: moving from master to testing</span><br><span class="line">aaf35a8 (master) HEAD@&#123;2020-09-22 11:23:15 +0800&#125;: <span class="built_in">clone</span>: from https://github.com/tiangoubot/gitTest.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检出分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b recovery_branch_name commitid</span><br></pre></td></tr></table></figure>
+
+<p>检出分支，本地就有分支了。</p>
+</li>
+<li><p>push到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git push origin recovery_branch_name</span><br></pre></td></tr></table></figure>
+
+<p>至此，恢复完成。</p>
+</li>
+</ol>
+<h3 id="变基"><a href="#变基" class="headerlink" title="变基"></a>变基</h3>]]></content>
+      <categories>
+        <category>true</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
