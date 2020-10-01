@@ -2771,7 +2771,7 @@
 <p>‘’ Github 是目前全球最大的同性（主要是男性）交友平台. ‘’ ———– 来自知乎</p>
 <p>Github是一个基于git的代码托管平台，个人用户目前可以免费使用公共仓库和私有仓库，公共仓库对所有人可见，私有仓库仅对自己以及你邀请的协作者可见 !</p>
 <p>开发者可以将代码在 GitHub 上开源，可以浏览其它项目的代码，fork 到自己名下做修改，clone 回本地（没有访问权限的 private repo 除外）使用，也可以发起 pull request 向上游提交自己的修改。GitHub 围绕项目（即 Git 中的 Repository）做了许多功能，例如 Wiki，首页（GitHub Pages）等，也可以通过 Graph 来查看其他人 fork 的情况。GitHub 也有 Gists，用于分享代码片段。除此之外也有许多包管理器以 GitHub 作为包仓库 </p>
-<h2 id="注册GitHub账户"><a href="#注册GitHub账户" class="headerlink" title="注册GitHub账户"></a>注册GitHub账户</h2><p>请前往官网：<a href="https://github.com/%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%86%8C%EF%BC%8C%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%E6%88%91%E5%B0%B1%E4%B8%8D%E4%BB%8B%E7%BB%8D%EF%BC%8C%E5%A4%AA%E7%AE%80%E5%8D%95%E4%BA%86%E3%80%82">https://github.com/进行注册，注册账号我就不介绍，太简单了。</a></p>
+<h2 id="注册GitHub账户"><a href="#注册GitHub账户" class="headerlink" title="注册GitHub账户"></a>注册GitHub账户</h2><p>请前往官网：<a href="https://github.com/">https://github.com/</a> 进行注册，注册账号我就不介绍，太简单了。</p>
 <h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>创建好GitHub账户，现在来创建一个新的仓库：</p>
 <p><img data-src="/2020/09/23/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20200927102143086.png" alt="image-20200927102143086"></p>
 <p>点击了<code>CREATE repository</code>按钮之后，就成功地创建了一个新的git仓库：</p>
