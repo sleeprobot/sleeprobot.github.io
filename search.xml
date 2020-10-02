@@ -106,7 +106,7 @@
 </li>
 </ol>
 <h1 id="测试SSH连接"><a href="#测试SSH连接" class="headerlink" title="测试SSH连接"></a>测试SSH连接</h1><p>设置 SSH 密钥并将其添加到您的 GitHub 帐户后，你可以测试连接。</p>
-<p>测试连接时，您将需要使用密码（即您之前创建的 SSH 密钥密码）验证此操作。 有关使用 SSH 密钥密码的更多信息，请参阅“<a href="https://docs.github.com/cn/free-pro-team@latest/articles/working-with-ssh-key-passphrases">使用 SSH 密钥密码</a>”。</p>
+<p>测试连接时，您将需要使用密码（即您之前创建的 SSH 密钥密码）验证此操作。</p>
 <ol>
 <li><p>Windows打开Git Bash，Mac和Linux打开Terminal（终端）。</p>
 </li>
@@ -2409,8 +2409,7 @@
 <p>但是 <code>.gitignore</code> 作为一个仓库结构的一部分，本身就应该是存在的，如果什么都不想忽略，那么就没必要建一个文件了。真碰到这种需求，总归还是要解决的。如果把<code>.gitignore</code>加到<code>.gitignore</code>文件中，是不起作用的。</p>
 <p><strong>解决办法：</strong></p>
 <p>编辑当前项目下的<code>./git/info/exclude</code>文件，然后将需要忽略提交的<code>.gitignore</code>文件路径写入就行了，注意写入文件的路径是相对项目根目录而言的。</p>
-<p>查看已暂存和未暂存的修改</p>
-<p>如果你想知道某个文件具体修改了什么地方，可以用 <code>git diff</code> 命令。</p>
+<h2 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h2><p>如果你想知道某个文件具体修改了什么地方，可以用 <code>git diff</code> 命令。</p>
 <p>现在我们再次修改<code>readme.txt</code>文件后暂存，然后编辑<code>test.txt</code>文件后先不暂存，运行<code>git status</code>命令将会看到：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   test.txt</span><br></pre></td></tr></table></figure>
 
