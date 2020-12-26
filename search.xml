@@ -168,7 +168,80 @@
   <entry>
     <title>SpringBoot 高级部分</title>
     <url>/2020/10/05/SpringBoot-%E9%AB%98%E7%BA%A7%E9%83%A8%E5%88%86/</url>
-    <content><![CDATA[<p>xx</p>
+    <content><![CDATA[<p>SpringBoot 易学难精，本文只是简单的总结了SpringBoot高级部分内容，没有深入研究，但是涵盖了缓存、消息、检索、任务、安全、分布式、热部署和监控管理方面。要真正精通，还需要进行大量的学习和使用（这句话给自己）。</p>
+<a id="more"></a>
+
+<h1 id="SpringBoot与缓存"><a href="#SpringBoot与缓存" class="headerlink" title="SpringBoot与缓存"></a>SpringBoot与缓存</h1><h2 id="JSR-107规范"><a href="#JSR-107规范" class="headerlink" title="JSR-107规范"></a>JSR-107规范</h2><p>Java Caching定义了5个核心接口</p>
+<ul>
+<li><p>CachingProvider</p>
+<p>定义了创建、配置、获取、管理和控制多个CacheManager。一个应用可<br>以在运行期访问多个CachingProvider。</p>
+</li>
+<li><p>CacheManager</p>
+<p>定义了创建、配置、获取、管理和控制多个唯一命名的Cache，这些Cache<br>存在于CacheManager的上下文中。一个CacheManager仅被一个CachingProvider所拥有。</p>
+</li>
+<li><p>Cache</p>
+<p>一个类似<strong>Map</strong>的数据结构并<strong>临时存储以Key为索引</strong>的值。一个Cache仅被一个<br>CacheManager所拥有。</p>
+</li>
+<li><p>Entry</p>
+<p>一个存储在Cache中的key-value对。</p>
+</li>
+<li><p>Expiry</p>
+<p>每一个存储在Cache中的条目有一个定义的有效期。一旦超过这个时间，条目为过期的状态。一旦过期，条目将不可访问、更新和删除。缓存有效期可以通过ExpiryPolicy设置。</p>
+</li>
+</ul>
+<p><img data-src="/2020/10/05/SpringBoot-%E9%AB%98%E7%BA%A7%E9%83%A8%E5%88%86/%E5%9B%BE%E7%89%871.png" alt="缓存在应用开发中的调用步骤"></p>
+<p>JSR-107规范在日常开发中用的较少，这里不做详细的介绍说明了，如果以后用到了，会开启新的章节记录下来。</p>
+<h2 id="Spring缓存抽象"><a href="#Spring缓存抽象" class="headerlink" title="Spring缓存抽象"></a>Spring缓存抽象</h2><p>Spring从3.1开始定义了<code>org.springframework.cache.Cache</code>和<code>org.springframework.cache.CacheManager</code>接口来统一不同的缓存技术，<strong>并支持使用JCache（JSR-107）</strong>注解简化我们开发。</p>
+<h2 id="几个重要概念和缓存注解"><a href="#几个重要概念和缓存注解" class="headerlink" title="几个重要概念和缓存注解"></a>几个重要概念和缓存注解</h2><p><strong>缓存注解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Cacheable</td>
+<td>根据方法的请求参数对其结果进行缓存</td>
+</tr>
+<tr>
+<td>@CacheEvict</td>
+<td>清空缓存</td>
+</tr>
+<tr>
+<td>@CachePut</td>
+<td>更新缓存</td>
+</tr>
+<tr>
+<td>@EnableCaching</td>
+<td>开启基于注解的缓存</td>
+</tr>
+</tbody></table>
+<p><strong>概念：</strong></p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cache</td>
+<td>缓存接口，定义缓存操作。实现有：RedisCache、EhCacheCache、ConcurrentMapCache等</td>
+</tr>
+<tr>
+<td>CacheManager</td>
+<td>缓存管理器，管理各种缓存（Cache）组件</td>
+</tr>
+<tr>
+<td>keyGenerator</td>
+<td>缓存数据时key生成策略</td>
+</tr>
+<tr>
+<td>serialize</td>
+<td>缓存数据时value序列化策略</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>SpringBoot</category>
