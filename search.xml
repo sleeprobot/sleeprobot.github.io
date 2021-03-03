@@ -91,14 +91,109 @@
   <entry>
     <title>JDK环境变量配置</title>
     <url>/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="JDK环境变量配置"><a href="#JDK环境变量配置" class="headerlink" title="JDK环境变量配置"></a>JDK环境变量配置</h1><ol>
-<li>计算机-&gt;属性-&gt;高级系统设置-&gt;高级-&gt;环境变量</li>
-<li>系统变量-&gt;新建<code>JAVA_HOME</code>变量，变量值：JDK的安装目录<a id="more"></a></li>
-<li>在系统变量中找到<code>Path</code>变量，新增两个变量值<code>%JAVA＿HOME%\bin;%JAVA_HOME%\jre\bin;</code>（path的变量值末尾如果没有;号，先输入;号在输入变量值。win10系统把变量全部列了出来，不用手动加;号）</li>
-<li>在系统变量新建<code>CLASSPATH</code>变量，变量值：<code>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code>（注意最前面的一个点）</li>
-<li>检验是否配置成功，<code>win+R</code>输入<code>cmd</code>回车，然后再dos窗口输入<code>java</code>回车，出现如下图即配置成功：</li>
+    <content><![CDATA[<h1 id="JDK环境变量配置"><a href="#JDK环境变量配置" class="headerlink" title="JDK环境变量配置"></a>JDK环境变量配置</h1><p>Java SE Development Kit简称JDK，学习Java开发，第一步当然是需要配置JDK环境变量了，首先，需要下载JDK，这里以JDK8为例，操作系统环境为win10。</p>
+<h2 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h2><p>官方下载地址：<a href="https://www.oracle.com/java/technologies/javase-downloads.html">https://www.oracle.com/java/technologies/javase-downloads.html</a></p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213152057978.png" alt="Oracle官网"></p>
+<p>点击<code>JDK Download</code>后，跳转到新页面，找到Windows安装程序，点击即可下载</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213152442260.png" alt="下载JDK8"></p>
+<p>根据自己的系统位数，选择相应的安装包下载，这里我下64位（Windows x64）的。</p>
+<blockquote>
+<p>下载时需要Oracle账户，自己用邮箱注册一个登录即可。</p>
+</blockquote>
+<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p>下载完JDK安装程序后，双击开始安装。</p>
+<h3 id="更改JDK安装位置"><a href="#更改JDK安装位置" class="headerlink" title="更改JDK安装位置"></a>更改JDK安装位置</h3><p>JDK默认的安装位置是<code>C:\Program Files\Java\jdk xxx</code>(xxx表示版本号)，这里我装到D盘，你们可以自行选择，但是要记住自己安装在哪，后续配置环境时有用。</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213155123097.png" alt="修改JDK安装路径"></p>
+<p>点击<code>下一步</code>，安装JDK。</p>
+<h3 id="更改JRE安装位置"><a href="#更改JRE安装位置" class="headerlink" title="更改JRE安装位置"></a>更改JRE安装位置</h3><p>安装完JDK之后，需要继续安装JRE，默认的安装位置同样在C盘，这里我同样安装到D盘，和JDK放一块，同样可以不做更改，但是要自己能找到安装位置。</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213155615093.png" alt="修改JRE安装路径"></p>
+<p>修改好安装位置之后，点击下一步，开始安装。</p>
+<h3 id="完成安装"><a href="#完成安装" class="headerlink" title="完成安装"></a>完成安装</h3><p>看到这个界面，表示安装完成了，点击关闭即可。</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213155747726.png" alt="安装完成"></p>
+<h2 id="关闭自动检查更新（可选）"><a href="#关闭自动检查更新（可选）" class="headerlink" title="关闭自动检查更新（可选）"></a>关闭自动检查更新（可选）</h2><p>如果电脑安装了管家类安全软件，在安装完成后会提示<code>jusched.exe</code>进程尝试加入开机自启，这个进程文件会定期检查Java是否有更新，占用电脑的资源不多，如果不需要（其实也没啥更新的），可以关闭自动检查更新。</p>
+<p>打开电脑的<code>控制面板</code>，点击<code>程序</code>：</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213160905881.png" alt="控制面板"></p>
+<p>点击<code>Java</code>，会打开Java控制面板：</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213161024603.png" alt="控制面板-程序"></p>
+<p>打开<code>Java 控制面板</code>，选择<code>更新</code>选项卡，将<code>自动检查更新</code>前面的<code>√</code>去掉，选择<code>不检查</code>，点击<code>确定</code>即可：</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213161630542.png" alt="Java控制面板"></p>
+<h2 id="JDK环境变量配置-1"><a href="#JDK环境变量配置-1" class="headerlink" title="JDK环境变量配置"></a>JDK环境变量配置</h2><ol>
+<li><p>鼠标右击<code>计算机（此电脑）</code>-&gt;<code>属性</code>-&gt;<code>高级系统设置</code>-&gt;<code>高级</code>-&gt;<code>环境变量</code></p>
+</li>
+<li><p>在系统变量中，点击<code>新建</code>，新建<code>JAVA_HOME</code>变量，变量的值：JDK的安装目录</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213162905080.png" alt="系统变量"></p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213162713003.png" alt="新建JAVA_HOME变量"></p>
+</li>
+<li><p>在系统变量中找到<code>Path</code>变量，双击打开，新增两个变量<code>%JAVA_HOME%\bin</code>和<code>%JAVA_HOME%\jre\bin</code>，点击<code>确定</code></p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213163513517.png" alt="在Path变量中新增变量"></p>
+<blockquote>
+<p>如果是win7或Xp的系统，要注意每个环境变量后面要加英文的<code>;</code></p>
+</blockquote>
+</li>
+<li><p>在系统变量中新建<code>CLASSPATH</code>变量，变量值：<code>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code>（注意前面的<code>.</code>），点击<code>确定</code>，保存退出。</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213164020498.png" alt="新建CLASSPATH变量"></p>
+</li>
+<li><p>检查是否配置成功，<code>win+R</code>输入<code>cmd</code>，然后回车，在黑乎乎的窗口输入<code>java -version</code>，能够看到你安装的jdk版本信息，即环境配置成功。</p>
+<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/image-20210213164515911.png" alt="检查是否配置成功"></p>
+<p>如果提示命令未找到，请检查是否漏了上述的哪个步骤。</p>
+</li>
 </ol>
-<p><img data-src="/2020/09/28/JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/1541949583293.png" alt="1541949583293"></p>
+<p>现在可以开始Java的学习之旅了！</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java类的初始化顺序</title>
+    <url>/2021/03/03/Java%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/</url>
+    <content><![CDATA[<p>本文主要演示Java类的初始化顺序，分为有继承和没有继承两种情况。</p>
+<!--  more -->
+
+<h2 id="没有继承情况"><a href="#没有继承情况" class="headerlink" title="没有继承情况"></a>没有继承情况</h2><p>直接上代码，工具类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 工具类Log</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">baseFieldInit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类普通成员变量&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">baseStaticFieldInit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类静态成员变量&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">fieldInit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类普通成员变量&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">staticFieldInit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类静态成员变量&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>父类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 父类/基类 为了方便后面有继承的情况，所以这里直接使用父类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类静态代码块 1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String staticValue = Log.baseStaticFieldInit();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类静态代码块 2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类构造代码块 1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String value = Log.baseFieldInit();</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类构造代码块 2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Base() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类构造方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//在 new 对象之前打印输出只是为了证明main方法虽然是程序入口，但是并不会最先执行</span></span><br><span class="line">        System.out.println(<span class="string">&quot;new 之前&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Base();</span><br><span class="line">        System.out.println(<span class="string">&quot;new 之后&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">父类静态代码块 1</span><br><span class="line">父类静态成员变量</span><br><span class="line">父类静态代码块 2</span><br><span class="line">new 之前</span><br><span class="line">父类构造代码块 1</span><br><span class="line">父类普通成员变量</span><br><span class="line">父类构造代码块 2</span><br><span class="line">父类构造方法</span><br><span class="line">new 之后</span><br></pre></td></tr></table></figure>
+
+<p>结论：</p>
+<ol>
+<li>静态代码块和静态成员变量并列优先级，按代码中出现的先后顺序执行，只有在第一次加载类时执行。</li>
+<li>在执行完静态代码块之后，会执行main方法中，实例化对象（<code>new</code>）之前的代码。</li>
+<li>构造代码块和普通成员变量并列优先级，按代码中出现的先后顺序执行。</li>
+<li>构造方法。</li>
+<li>最后就是实例化对象（<code>new</code>）之后的代码。</li>
+</ol>
+<p>注意：第1步只有在类第一次被加载的时候才运行。如果创建两个对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Base();</span><br><span class="line"><span class="keyword">new</span> Base();</span><br></pre></td></tr></table></figure>
+
+<p>第二次创建对象，就只执行第3步。</p>
+<h2 id="有继承的情况"><a href="#有继承的情况" class="headerlink" title="有继承的情况"></a>有继承的情况</h2><p>这里创建一个子类<code>Subclass</code>继承上述中的父类<code>Base</code>，同时也使用了工具类<code>Log</code>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子类/派生类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类静态代码块 1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String staticValue = Log.staticFieldInit();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类静态代码块 2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类普通代码块 1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String value = Log.fieldInit();</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类普通代码块 2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SubClass() &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类构造方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;new 之前&quot;</span>);</span><br><span class="line"></span><br><span class="line">        SubClass sub = <span class="keyword">new</span> SubClass();</span><br><span class="line">        System.out.println(<span class="string">&quot;new 之后&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">父类静态代码块 1</span><br><span class="line">父类静态成员变量</span><br><span class="line">父类静态代码块 2</span><br><span class="line">子类静态代码块 1</span><br><span class="line">子类静态成员变量</span><br><span class="line">子类静态代码块 2</span><br><span class="line">new 之前</span><br><span class="line">父类构造代码块 1</span><br><span class="line">父类普通成员变量</span><br><span class="line">父类构造代码块 2</span><br><span class="line">父类构造方法</span><br><span class="line">子类普通代码块 1</span><br><span class="line">子类普通成员变量</span><br><span class="line">子类普通代码块 2</span><br><span class="line">子类构造方法</span><br><span class="line">new 之后</span><br></pre></td></tr></table></figure>
+
+<p>结论：</p>
+<ol>
+<li>父类静态代码块和静态成员变量并列优先级，按代码出现先后顺序执行。</li>
+<li>子类静态代码块和静态成员变量并列优先级，按代码出现先后顺序执行。</li>
+<li>main方法中实例化对象（<code>new</code>）之前的代码。</li>
+<li>父类构造代码块和普通成员变量并列优先级，按代码出现先后顺序执行。</li>
+<li>父类构造方法。</li>
+<li>子类构造代码块和普通成员变量并列优先级，按代码出现先后顺序执行。</li>
+<li>子类构造方法。</li>
+<li>main方法中实例化对象（<code>new</code>）之前的代码。</li>
+</ol>
+<p>注意，第1，2步只有在子类第一次被加载时才运行，如果创建两个对象，则第二次创建对象只执行第4，5，6，7步。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在没有继承的情况下，优先级：静态代码块和静态成员变量 &gt; 构造代码块和普通成员变量  &gt; 构造方法。</p>
+<p>有继承的情况下，优先级：父类静态代码块和静态成员变量 &gt; 子类静态代码块和静态成员变量 &gt; 父类构造代码块和普通成员变量 &gt; 父类构造方法 &gt; 子类构造代码块和普通成员变量 &gt; 子类构造方法。</p>
+<p>main方法是一个静态方法，在通过<code>java</code>命令运行<code>SubClass</code>时，产生的第一个事件就是试图访问<code>SubClass.main()</code>，于是类加载器开始启动并找到<code>SubClass.class</code>文件，对它进行加载时，发现这是一个子类（有extends关键字），于是继续加载它的父类<code>Base</code>，这个过程，不管是否创建了父类对象都会进行。如果父类还有父类，那么还会继续加载，依次类推。在静态代码块和静态成员变量都加载完成后，就会执行main方法中的其他代码，如果遇到了实例化对象的代码，就会按照上述所说的优先级执行代码。</p>
 ]]></content>
       <categories>
         <category>JAVA</category>
@@ -298,6 +393,84 @@
       <tags>
         <tag>电脑软件</tag>
         <tag>办公软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title> 多态中的向上转型与向下转型</title>
+    <url>/2021/03/03/%E5%A4%9A%E6%80%81%E4%B8%AD%E7%9A%84%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B%E4%B8%8E%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B/</url>
+    <content><![CDATA[<p>在讨论向上转型和向下转型之前，先复习下多态。</p>
+<h2 id="什么是多态？"><a href="#什么是多态？" class="headerlink" title="什么是多态？"></a>什么是多态？</h2><p>多态（Polymorphism）即同一操作作用于不同的对象，可以有不同的解释，产生不同的结果。</p>
+<a id="more"></a>
+
+<h2 id="多态的分类"><a href="#多态的分类" class="headerlink" title="多态的分类"></a>多态的分类</h2><p>多态一般分为两种：</p>
+<ol>
+<li><p>重载式多态</p>
+<ul>
+<li>重载式多态，也叫编译时多态。也就是说这种多态在编译时已经确定好了。方法名相同而参数列表不同的一组方法就是重载。在调用这种重载的方法时，通过传入不同的参数最后得到不同的结果。</li>
+</ul>
+</li>
+<li><p>重写式多态</p>
+<ul>
+<li>重写式多态，也叫运行时多态。这种多态通过动态绑定（dynamic binding）技术来实现，是指在执行期间判断所引用对象的实际类型，根据其实际的类型调用其相应的方法。也就是说，只有程序运行起来，你才知道调用的是哪个子类的方法。这种多态通过函数的重写以及向上转型来实现。</li>
+</ul>
+</li>
+</ol>
+<h2 id="多态实现的必要条件"><a href="#多态实现的必要条件" class="headerlink" title="多态实现的必要条件"></a>多态实现的必要条件</h2><ol>
+<li><p>继承或实现接口</p>
+<ul>
+<li>在多态中必须存在有继承关系的子类和父类或者接口及其实现类</li>
+</ul>
+</li>
+<li><p>重写</p>
+<ul>
+<li>子类对父类中某些方法进行重新定义，再调用这些方法时就会调用子类的方法</li>
+</ul>
+</li>
+<li><p>向上转型</p>
+<ul>
+<li>父类引用指向子类对象叫做向上转型。</li>
+</ul>
+</li>
+</ol>
+<h2 id="向上转型与向下转型"><a href="#向上转型与向下转型" class="headerlink" title="向上转型与向下转型"></a>向上转型与向下转型</h2><p>向上转型，上面已经说了。向下转型是子类引用指向父类对象（父类型，实例是子类的实例化），通常需要进行强制类型转换。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//水果类，拥有一个show()方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fruits</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我水果之父，打钱!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 苹果类，实现父类水果，并重写show()方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword">extends</span> <span class="title">Fruits</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我苹果，打钱!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是红色的苹果。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 香蕉类，实现父类水果，并重写show()方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Banana</span> <span class="keyword">extends</span> <span class="title">Fruits</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我香蕉，打钱!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">color</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是黄色的香蕉。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//向上转型</span></span><br><span class="line">        Fruits fruit = <span class="keyword">new</span> Apple();</span><br><span class="line"></span><br><span class="line">        fruit.show();</span><br><span class="line"></span><br><span class="line">        fruit = <span class="keyword">new</span> Banana();</span><br><span class="line"></span><br><span class="line">        fruit.show();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">运行结果：</span></span><br><span class="line"><span class="comment">	我苹果，打钱!</span></span><br><span class="line"><span class="comment">	我香蕉，打钱!</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是向上转型，<code>Fruits fruit = new Apple();</code>将子类对象Apple转化为父类对象Fruits，这个时候fruit引用指向的是子类对象，所以调用的方法是子类方法。</p>
+<h3 id="向上转型的好处"><a href="#向上转型的好处" class="headerlink" title="向上转型的好处"></a>向上转型的好处</h3><ul>
+<li>减少重复代码</li>
+<li>提高代码扩展性</li>
+</ul>
+<h3 id="向上转型需要注意的问题"><a href="#向上转型需要注意的问题" class="headerlink" title="向上转型需要注意的问题"></a>向上转型需要注意的问题</h3><p>向上转型时，子类单独定义的方法会丢失。比如，上面案例中的Apple类和Banana类都定义了自己的color方法，当进行了向上转型后，fruit引用指向Apple类的实例时是访问不到color方法的，<code>fruit.color()</code>会报错。</p>
+<h3 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h3><p>子类引用指向父类对象（父类型，实例是子类的实例化），通常需要进行强制类型转换，但是这里有个需要注意的问题。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//还是上面的Fruits、Apple、Banana</span></span><br><span class="line"></span><br><span class="line">Fruits fruit = <span class="keyword">new</span> Apple();	<span class="comment">//向上转型</span></span><br><span class="line"></span><br><span class="line">Apple apple = (Apple)fruit;	<span class="comment">//向下转型，强制类型转换</span></span><br><span class="line"></span><br><span class="line">apple.color();	<span class="comment">//输出：我是红色的苹果。</span></span><br><span class="line"></span><br><span class="line">Banana banana = (Banana) fruit;	<span class="comment">//报错：java.lang.ClassCastException</span></span><br><span class="line"></span><br><span class="line">Fruits f1 = <span class="keyword">new</span> Fruits();</span><br><span class="line"></span><br><span class="line">Apple a1 = (Apple) f1;	<span class="comment">//报错：java.lang.ClassCastException</span></span><br></pre></td></tr></table></figure>
+
+<p>为什么<code>Apple apple = (Apple)fruit;</code>没有报错可以转换成功呢？因为apple本身就是Apple对象，所以理所当然可以向下转型为Apple，所以自然也就不能转换成Banana，人可以干出指鹿为马的事情，但是编译器不行，不会指着苹果说是香蕉。</p>
+<p>而f1是Fruits对象，它也不能被向下转型为任何子类对象，就好比你买了一个不知名的水果，你只知道它是一种水果，但是你不能直接说这个水果是苹果或者香蕉。</p>
+<h3 id="向下转型需要注意的问题"><a href="#向下转型需要注意的问题" class="headerlink" title="向下转型需要注意的问题"></a>向下转型需要注意的问题</h3><ul>
+<li>向下转型的前提是父类引用指向的是子类对象，也就是说，向下转型之前，它得先进行过向上转型。</li>
+<li>向下转型只能转型为本类对象（苹果是不能变成香蕉的）。</li>
+</ul>
+<h3 id="多态的经典案例"><a href="#多态的经典案例" class="headerlink" title="多态的经典案例"></a>多态的经典案例</h3><p>简单的多态和转型，相信大家都会，最后来个复杂的，一个经典案例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(D obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and D&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(B obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a1 = <span class="keyword">new</span> A();</span><br><span class="line">        A a2 = <span class="keyword">new</span> B();</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        C c = <span class="keyword">new</span> C();</span><br><span class="line">        D d = <span class="keyword">new</span> D();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;1--&quot;</span> + a1.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;2--&quot;</span> + a1.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;3--&quot;</span> + a1.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;4--&quot;</span> + a2.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;5--&quot;</span> + a2.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;6--&quot;</span> + a2.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;7--&quot;</span> + b.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;8--&quot;</span> + b.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;9--&quot;</span> + b.show(d));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">    1--A and A</span></span><br><span class="line"><span class="comment">    2--A and A</span></span><br><span class="line"><span class="comment">    3--A and D</span></span><br><span class="line"><span class="comment">    4--B and A</span></span><br><span class="line"><span class="comment">    5--B and A</span></span><br><span class="line"><span class="comment">    6--A and D</span></span><br><span class="line"><span class="comment">    7--B and B</span></span><br><span class="line"><span class="comment">    8--B and B</span></span><br><span class="line"><span class="comment">    9--A and D</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>结果1、2、3还好理解，从4开始就糊涂了，4为什么不是“B and B”呢？</p>
+<p>这里我们先看一句话：<strong>当父类对象引用变量引用子类对象时，被引用对象的类型决定了调用谁的成员方法，但是这个被调用的方法必须是在父类中定义过的，也就是说被子类覆盖的方法。</strong>这句话对多态进行了一个概括，其实在继承中对象方法的调用存在一个优先级：this.show(O)、super.show(O)、this.show((super)O)、super.show((super)O)。</p>
+<p>现在来分析一下4，<code>a2.show(b)</code>：</p>
+<ul>
+<li>a2是A类型的引用变量，this就代表了A，但是a2所引用的是B对象（new B()），那么按照上面那句话的意思，<code>a2.show(b)</code>就应该要调用B类中的<code>show(B obj)</code>，产生的结果就是”B and B“，但是运行结果明显不是，别忘了上面的话后面还有一句，必须是父类中定义过的方法才行，然而B的父类A中并没有<code>show(B obj)</code>，难道上面的话是错误的？其实不是，因为它仍然要按照继承链中调用方法的优先级来确定，所以它才会在A类中找到<code>show(A obj)</code>，由于B中重写了该方法，所以才会调用B类中的方法，所以得到的结果是<code>B and A</code>。</li>
+<li>上面的解释可能有点绕，很多大佬在博客中也是这么写的，现在我来说说自己的理解。<code>A a2 = new B();</code>这行代码进行了向上转型，前面说过向上转型之后，子类单独定义的方法会丢失（不能被调用），那么这个时候a2可以调用的方法就剩下A类中的<code>show(D obj)、show(A obj)</code>以及B类中的<code>show(A obj)</code>，那么按照继承链中调用方法的优先级来判断，先到类A中找到<code>show(A obj)</code>，由于B类中进行了重写 ，所以调用的是B类中的<code>show(A obj)</code>。</li>
+</ul>
+<p>那么按照我的理解，来分析下5，<code>a2.show(c)</code>。</p>
+<ul>
+<li>首先<code>A a2 = new B();</code>进行向上转型，那么，a2能调用的方法还是A类中的<code>show(D obj)、show(A obj)</code>以及B类中的<code>show(A obj)</code>，按照继承链中调用方法的优先级，a2是A类型的引用变量，所以继承链方法调用优先级中<code>this.show(O)</code>的this就代表了A，显然A类中的方法不满足这个要求，跳过，所以接下来是<code>super.show(O)</code>，A类没有父类（除了Object类），再次跳过，然后是<code>this.show((super)O)</code>，C继承于B，B继承于A，所以<code>show(A obj)</code>满足要求，由于a2变量引用的对象类型是B类型，而B类型又重写了该方法，所以最终调用的是B类中的<code>show(A obj)</code>，所以最后输出为<code>B and A</code>。</li>
+</ul>
+<p>能够分析出4和5，那么接下来的就很简单了，看到这篇文章的话，可以自己试着分析下。如果有错误的地方，希望能够指出，大家共同进步！</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
